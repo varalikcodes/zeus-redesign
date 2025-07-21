@@ -1,34 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ZEUSCAREERS Job Alerts</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZeusCareers | Job Board</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #407BFF;
+      --bg-light: #f9f9f9;
+      --text: #222;
+      --subtext: #666;
+      --border: #e2e2e2;
+      --card-bg: #fff;
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header img {
+      height: 48px;
+    }
+
+    .nav a {
+      margin-left: 24px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .filters {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .filters h3 {
+      margin-bottom: 16px;
+    }
+
+    .filters label {
+      display: block;
+      margin-top: 12px;
+    }
+
+    .filters input, .filters select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 4px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .job-listings {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 24px;
+    }
+
+    .jobs {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .job-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: box-shadow 0.3s;
+    }
+
+    .job-card:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .job-card h4 {
+      margin-bottom: 6px;
+      font-size: 1.25rem;
+    }
+
+    .job-card p {
+      color: var(--subtext);
+      margin-bottom: 4px;
+    }
+
+    .hidden { display: none; }
+  </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="container nav-content">
-      <img src="zeus-logo.png" alt="ZeusCareers Logo" class="logo" />
-      <nav>
-        <a href="#">About</a>
-        <a href="#">Resources</a>
-        <a href="#">Pricing</a>
-        <a href="#" class="cta-btn">Post a Job</a>
-      </nav>
+  <div class="header">
+    <img src="zeus-logo.png" alt="ZeusCareers">
+    <div class="nav">
+      <a href="#">About</a>
+      <a href="#">Resources</a>
+      <a href="#">Pricing</a>
     </div>
-  </header>
+  </div>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Never Miss Out on Great Opportunities</h1>
-      <p>Get curated job alerts straight to your inbox.</p>
-      <form class="subscribe-form">
-        <input type="email" placeholder="Enter your email" required />
-        <button type="submit">Subscribe</button>
-      </form>
+  <div class="container">
+    <div class="job-listings">
+      <div class="filters">
+        <h3>Filter Jobs</h3>
+        <label for="type">Job Type</label>
+        <select id="type">
+          <option value="all">All</option>
+          <option value="full-time">Full-Time</option>
+          <option value="part-time">Part-Time</option>
+        </select>
+
+        <label for="location">Location</label>
+        <input type="text" id="location" placeholder="e.g. India">
+
+        <label for="category">Category</label>
+        <select id="category">
+          <option value="all">All</option>
+          <option value="tech">Tech</option>
+          <option value="finance">Finance</option>
+        </select>
+
+        <button onclick="filterJobs()" style="margin-top: 16px; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 6px;">Apply Filters</button>
+      </div>
+
+      <div class="jobs" id="jobCards">
+        <div class="job-card" data-type="full-time" data-location="india" data-category="tech">
+          <h4>Frontend Developer</h4>
+          <p>Full-Time | Bengaluru, India</p>
+          <p>Tech Department</p>
+        </div>
+
+        <div class="job-card" data-type="part-time" data-location="usa" data-category="finance">
+          <h4>Financial Analyst Intern</h4>
+          <p>Part-Time | New York, USA</p>
+          <p>Finance Department</p>
+        </div>
+
+        <div class="job-card" data-type="full-time" data-location="france" data-category="tech">
+          <h4>Cloud Engineer</h4>
+          <p>Full-Time | Paris, France</p>
+          <p>Tech Department</p>
+        </div>
+
+        <div class="job-card" data-type="full-time" data-location="india" data-category="finance">
+          <h4>Accounting Manager</h4>
+          <p>Full-Time | Mumbai, India</p>
+          <p>Finance Department</p>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <script>
+    function filterJobs() {
+      const type = document.getElementById('type').value;
+      const location = document.getElementById('location').value.toLowerCase();
+      const category = document.getElementById('category').value;
+
+      const cards = document.querySelectorAll('.job-card');
+
+      cards.forEach(card => {
+        const cardType = card.getAttribute('data-type');
+        const cardLocation = card.getAttribute('data-location');
+        const cardCategory = card.getAttribute('data-category');
+
+        const typeMatch = (type === 'all' || cardType === type);
+        const locationMatch = (location === '' || cardLocation.includes(location));
+        const categoryMatch = (category === 'all' || cardCategory === category);
+
+        if (typeMatch && locationMatch && categoryMatch) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
