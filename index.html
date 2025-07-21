@@ -1503,16 +1503,29 @@
                     <p class="job-description">${job.description}</p>
                     <div class="job-footer">
                         <span class="posted-time">${job.postedTime}</span>
-                        <button class="apply-button" onclick="openJobModal(${job.id})">Apply Now</button>
+                        <button class="apply-button" data-job-id="${job.id}">Apply Now</button>
                     </div>
                 </div>
             `).join('');
+
+            // Add event listeners to apply buttons
+            document.querySelectorAll('.apply-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const jobId = parseInt(this.getAttribute('data-job-id'));
+                    openJobModal(jobId);
+                });
+            });
         }
 
         // Open job modal
         function openJobModal(jobId) {
             const job = jobsData.find(j => j.id === jobId);
-            if (!job) return;
+            if (!job) {
+                console.error('Job not found:', jobId);
+                return;
+            }
+
+            console.log('Opening modal for job:', job.title);
 
             // Populate modal with job data
             document.getElementById('modalCompanyLogo').textContent = job.logo;
@@ -1542,10 +1555,12 @@
             modalBenefits.innerHTML = job.benefits.map(item => `<li>${item}</li>`).join('');
 
             // Show modal and blur background
-            jobModal.classList.add('active');
-            document.querySelector('.main-content').classList.add('blur-background');
-            document.querySelector('header').classList.add('blur-background');
-            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                jobModal.classList.add('active');
+                document.querySelector('.main-content').classList.add('blur-background');
+                document.querySelector('header').classList.add('blur-background');
+                document.body.style.overflow = 'hidden';
+            }, 10);
         }
 
         // Close job modal
@@ -1554,6 +1569,18 @@
             document.querySelector('.main-content').classList.remove('blur-background');
             document.querySelector('header').classList.remove('blur-background');
             document.body.style.overflow = 'auto';
+            
+            // Reset form
+            document.getElementById('applicantName').value = '';
+            document.getElementById('applicantEmail').value = '';
+            document.getElementById('applicantPhone').value = '';
+            document.getElementById('applicantLinkedIn').value = '';
+            document.getElementById('coverLetter').value = '';
+            document.getElementById('resumeFile').value = '';
+            document.querySelector('.file-upload-text').innerHTML = `
+                📄 Click to upload your resume<br>
+                <small>Supports PDF, DOC, DOCX (Max 5MB)</small>
+            `;
         }
 
         // Filter jobs
@@ -1651,18 +1678,6 @@
 
             alert('Application submitted successfully! We will review your application and get back to you soon.');
             closeJobModal();
-            
-            // Reset form
-            document.getElementById('applicantName').value = '';
-            document.getElementById('applicantEmail').value = '';
-            document.getElementById('applicantPhone').value = '';
-            document.getElementById('applicantLinkedIn').value = '';
-            document.getElementById('coverLetter').value = '';
-            document.getElementById('resumeFile').value = '';
-            document.querySelector('.file-upload-text').innerHTML = `
-                📄 Click to upload your resume<br>
-                <small>Supports PDF, DOC, DOCX (Max 5MB)</small>
-            `;
         });
 
         // Add smooth scrolling for navigation links
@@ -1742,9 +1757,6 @@
 
         // Initialize the page
         renderJobs(filteredJobs);
-
-        // Make openJobModal globally accessible
-        window.openJobModal = openJobModal;
     </script>
 </body>
 </html>
