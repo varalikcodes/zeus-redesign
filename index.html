@@ -850,7 +850,7 @@
     <header>
         <nav class="container">
             <div class="logo-container">
-                <img src="zeus-logo.png" alt="Zeus Careers Logo" class="logo">
+                <img src="placeholder.png" alt="Zeus Careers Logo" class="logo">
                 <div class="logo-text">Zeus Careers</div>
             </div>
             <ul class="nav-links">
@@ -1507,25 +1507,19 @@
                     </div>
                 </div>
             `).join('');
-
-            // Add event listeners to apply buttons
-            document.querySelectorAll('.apply-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const jobId = parseInt(this.getAttribute('data-job-id'));
-                    openJobModal(jobId);
-                });
-            });
         }
 
         // Open job modal
         function openJobModal(jobId) {
+            console.log('Opening modal for job ID:', jobId);
+            
             const job = jobsData.find(j => j.id === jobId);
             if (!job) {
                 console.error('Job not found:', jobId);
                 return;
             }
 
-            console.log('Opening modal for job:', job.title);
+            console.log('Found job:', job.title);
 
             // Populate modal with job data
             document.getElementById('modalCompanyLogo').textContent = job.logo;
@@ -1554,21 +1548,39 @@
             const modalBenefits = document.getElementById('modalBenefits');
             modalBenefits.innerHTML = job.benefits.map(item => `<li>${item}</li>`).join('');
 
-            // Show modal and blur background
+            // Show modal
+            jobModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Add blur effect to background
+            document.querySelector('header').style.filter = 'blur(5px)';
+            document.querySelector('.main-content').style.filter = 'blur(5px)';
+            
+            // Trigger animation
             setTimeout(() => {
                 jobModal.classList.add('active');
-                document.querySelector('.main-content').classList.add('blur-background');
-                document.querySelector('header').classList.add('blur-background');
-                document.body.style.overflow = 'hidden';
             }, 10);
+            
+            console.log('Modal should be visible now');
         }
 
         // Close job modal
         function closeJobModal() {
+            console.log('Closing modal');
+            
             jobModal.classList.remove('active');
-            document.querySelector('.main-content').classList.remove('blur-background');
-            document.querySelector('header').classList.remove('blur-background');
+            
+            // Restore scrolling
             document.body.style.overflow = 'auto';
+            
+            // Remove blur effects
+            document.querySelector('header').style.filter = 'none';
+            document.querySelector('.main-content').style.filter = 'none';
+            
+            // Hide modal after animation
+            setTimeout(() => {
+                jobModal.style.display = 'none';
+            }, 300);
             
             // Reset form
             document.getElementById('applicantName').value = '';
@@ -1635,6 +1647,17 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && jobModal.classList.contains('active')) {
                 closeJobModal();
+            }
+        });
+
+        // Event delegation for apply buttons (since they're dynamically generated)
+        jobsGrid.addEventListener('click', function(e) {
+            if (e.target.classList.contains('apply-button')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const jobId = parseInt(e.target.getAttribute('data-job-id'));
+                console.log('Apply button clicked for job ID:', jobId);
+                openJobModal(jobId);
             }
         });
 
