@@ -1,296 +1,1750 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ZeusCareers | Job Board</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #407BFF;
-      --bg-light: #f4f7ff;
-      --bg-dark: #0f172a;
-      --text-light: #111;
-      --text-dark: #e2e8f0;
-      --subtext-light: #555;
-      --subtext-dark: #94a3b8;
-      --border: #dcdcdc;
-      --card-bg-light: #fff;
-      --card-bg-dark: #1e293b;
-      --radius: 14px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeus Careers - Find Your Dream Job</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #000000 0%, #4a4a4a 100%);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
 
-    html, body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-light);
-      transition: background 0.3s, color 0.3s;
-    }
+        /* Dark mode styles */
+        body.dark {
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+        }
 
-    body.dark {
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 40px 20px;
-    }
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 32px 40px;
-      background: linear-gradient(to right, #dbeafe, #e0f2fe);
-      border-bottom: 2px solid var(--border);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.05);
-    }
+        body.dark header {
+            background: rgba(26, 26, 26, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
 
-    .header img {
-      height: 80px;
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
 
-    .banner-text {
-      font-family: 'Titillium Web', sans-serif;
-      font-size: 1.6rem;
-      color: #222;
-      text-shadow: 1px 1px 0 #ffffffcc;
-      position: relative;
-      overflow: hidden;
-      animation: lightningFlash 4s infinite;
-    }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    .zeus {
-      font-weight: 700;
-      transition: all 0.2s;
-    }
+        .logo {
+            height: 40px;
+            width: auto;
+        }
 
-    @keyframes lightningFlash {
-      0%, 95%, 100% {
-        background-color: transparent;
-        color: #222;
-        text-shadow: none;
-      }
-      96%, 98% {
-        background-color: #fff;
-        color: #facc15;
-        text-shadow: 0 0 6px #facc15, 0 0 20px #facc15;
-      }
-      97%, 99% {
-        background-color: transparent;
-        color: #222;
-      }
-    }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #000000, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .nav a {
-      margin-left: 28px;
-      text-decoration: none;
-      color: #1e293b;
-      font-weight: 600;
-    }
+        body.dark .logo-text {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .toggle-wrapper {
-      position: absolute;
-      top: 16px;
-      right: 40px;
-    }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
 
-    .toggle-wrapper button {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-    }
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-    .filters {
-      background: var(--card-bg-light);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 24px;
-      transition: background 0.3s;
-    }
+        body.dark .nav-links a {
+            color: #cbd5e0;
+        }
 
-    body.dark .filters {
-      background: var(--card-bg-dark);
-    }
+        .nav-links a:hover {
+            color: #000000;
+            transform: translateY(-2px);
+        }
 
-    .filters h3 {
-      margin-bottom: 16px;
-    }
+        body.dark .nav-links a:hover {
+            color: #ffffff;
+        }
 
-    .filters label {
-      display: block;
-      margin-top: 12px;
-    }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(45deg, #000000, #666666);
+            transition: width 0.3s ease;
+        }
 
-    .filters input, .filters select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 4px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background-color: #fff;
-    }
+        body.dark .nav-links a::after {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+        }
 
-    body.dark .filters input,
-    body.dark .filters select {
-      background-color: #334155;
-      color: var(--text-dark);
-    }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
 
-    .job-listings {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      gap: 24px;
-    }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-    .jobs {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
+        .theme-toggle {
+            background: none;
+            border: 2px solid #e2e8f0;
+            color: #4a5568;
+            padding: 0.5rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .job-card {
-      background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
-      padding: 24px 28px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    }
+        body.dark .theme-toggle {
+            border-color: #4a5568;
+            color: #cbd5e0;
+        }
 
-    body.dark .job-card {
-      background: #1e293b;
-      color: var(--text-dark);
-      border: 1px solid #334155;
-    }
+        .theme-toggle:hover {
+            background: #f7fafc;
+            transform: scale(1.1);
+        }
 
-    .job-card:hover {
-      transform: scale(1.015);
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-    }
+        body.dark .theme-toggle:hover {
+            background: #2d3748;
+        }
 
-    .job-card h4 {
-      font-size: 1.4rem;
-      margin-bottom: 8px;
-      font-weight: 700;
-      color: #1e40af;
-    }
+        .cta-button {
+            background: linear-gradient(45deg, #000000, #666666);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
 
-    body.dark .job-card h4 {
-      color: #60a5fa;
-    }
+        body.dark .cta-button {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000000;
+        }
 
-    .job-card p {
-      color: var(--subtext-light);
-    }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
 
-    body.dark .job-card p {
-      color: var(--subtext-dark);
-    }
+        body.dark .cta-button:hover {
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
 
-    .hidden {
-      display: none;
-    }
-  </style>
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(74, 74, 74, 0.9));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark .hero {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(0, 0, 0, 0.95));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 60px;
+            padding: 0.5rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            background: transparent;
+            outline: none;
+            color: #2d3748;
+        }
+
+        .search-input::placeholder {
+            color: #a0aec0;
+        }
+
+        .search-button {
+            background: linear-gradient(45deg, #000000, #666666);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        body.dark .search-button {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000000;
+        }
+
+        .search-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark .search-button:hover {
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: -20px;
+            position: relative;
+            z-index: 10;
+            padding: 3rem 0;
+            transition: all 0.3s ease;
+        }
+
+        body.dark .main-content {
+            background: #1a1a1a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #000000, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark .section-title {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Filters Sidebar */
+        .filters-sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            min-width: 280px;
+        }
+
+        body.dark .filters-sidebar {
+            background: #2d3748;
+            border-color: #4a5568;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .filters-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #000000, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark .filters-title {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .filter-group {
+            margin-bottom: 2rem;
+        }
+
+        .filter-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        body.dark .filter-label {
+            color: #e2e8f0;
+        }
+
+        .filter-input, .filter-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background: white;
+            color: #2d3748;
+        }
+
+        body.dark .filter-input, body.dark .filter-select {
+            background: #4a5568;
+            border-color: #718096;
+            color: #e2e8f0;
+        }
+
+        .filter-input:focus, .filter-select:focus {
+            border-color: #000000;
+        }
+
+        body.dark .filter-input:focus, body.dark .filter-select:focus {
+            border-color: #ffffff;
+        }
+
+        .salary-range {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .salary-range input {
+            flex: 1;
+        }
+
+        .salary-separator {
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .clear-filters {
+            background: transparent;
+            border: 2px solid #e2e8f0;
+            color: #4a5568;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        body.dark .clear-filters {
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+
+        .clear-filters:hover {
+            background: #f7fafc;
+            border-color: #000000;
+        }
+
+        body.dark .clear-filters:hover {
+            background: #4a5568;
+            border-color: #ffffff;
+        }
+
+        /* Content Layout */
+        .content-wrapper {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .jobs-content {
+            flex: 1;
+        }
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark .job-card {
+            background: #2d3748;
+            border-color: #4a5568;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #000000, #666666);
+        }
+
+        body.dark .job-card::before {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+        }
+
+        .job-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .job-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #000000, #666666);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        body.dark .company-logo {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000000;
+        }
+
+        .job-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #2d3748;
+        }
+
+        body.dark .job-info h3 {
+            color: #e2e8f0;
+        }
+
+        .company-name {
+            color: #000000;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        body.dark .company-name {
+            color: #ffffff;
+        }
+
+        .job-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .job-tag {
+            background: #f7fafc;
+            color: #4a5568;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid #e2e8f0;
+        }
+
+        body.dark .job-tag {
+            background: #4a5568;
+            color: #e2e8f0;
+            border-color: #718096;
+        }
+
+        .salary {
+            background: linear-gradient(45deg, #000000, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        body.dark .salary {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .job-description {
+            color: #718096;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        body.dark .job-description {
+            color: #a0aec0;
+        }
+
+        .posted-time {
+            color: #a0aec0;
+            font-size: 0.8rem;
+        }
+
+        body.dark .posted-time {
+            color: #718096;
+        }
+
+        .apply-button {
+            background: linear-gradient(45deg, #000000, #666666);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        body.dark .apply-button {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            color: #000000;
+        }
+
+        .apply-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark .apply-button:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            padding: 4rem 0;
+            text-align: center;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        body.dark .newsletter {
+            background: linear-gradient(135deg, #2d3748, #1a1a1a);
+        }
+
+        .newsletter h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+
+        body.dark .newsletter h2 {
+            color: #e2e8f0;
+        }
+
+        .newsletter p {
+            color: #718096;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        body.dark .newsletter p {
+            color: #a0aec0;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background: white;
+            color: #2d3748;
+        }
+
+        body.dark .newsletter-input {
+            background: #2d3748;
+            border-color: #4a5568;
+            color: #e2e8f0;
+        }
+
+        .newsletter-input:focus {
+            border-color: #000000;
+        }
+
+        body.dark .newsletter-input:focus {
+            border-color: #ffffff;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        body.dark footer {
+            background: #000000;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #000000;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.dark .footer-section h3 {
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffffff;
+        }
+
+        body.dark .footer-section ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5568;
+            padding-top: 2rem;
+            text-align: center;
+            color: #a0aec0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .theme-toggle {
+                margin-right: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .search-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .filters-sidebar {
+                position: static;
+                margin-bottom: 2rem;
+                min-width: auto;
+            }
+
+            .modal-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .modal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .modal-company-logo {
+                align-self: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .job-card:nth-child(1) { animation-delay: 0.1s; }
+        .job-card:nth-child(2) { animation-delay: 0.2s; }
+        .job-card:nth-child(3) { animation-delay: 0.3s; }
+        .job-card:nth-child(4) { animation-delay: 0.4s; }
+        .job-card:nth-child(5) { animation-delay: 0.5s; }
+        .job-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
 </head>
 <body>
-  <div class="header">
-    <img src="zeus-logo.png" alt="ZeusCareers">
-    <div class="banner-text"><span class="zeus">Zeus</span>Careers: Unleashing Potential, One Job at a Time</div>
-    <div class="toggle-wrapper">
-      <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    </div>
-  </div>
+    <header>
+        <nav class="container">
+            <div class="logo-container">
+                <img src="zeus-logo.png" alt="Zeus Careers Logo" class="logo">
+                <div class="logo-text">Zeus Careers</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#jobs">Jobs</a></li>
+                <li><a href="#companies">Companies</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+                <a href="#" class="cta-button">Post a Job</a>
+            </div>
+        </nav>
+    </header>
 
-  <div class="container">
-    <div class="job-listings">
-      <div class="filters">
-        <h3>Filter Jobs</h3>
-        <label for="type">Job Type</label>
-        <select id="type">
-          <option value="all">All</option>
-          <option value="full-time">Full-Time</option>
-          <option value="part-time">Part-Time</option>
-        </select>
-
-        <label for="location">Location</label>
-        <input type="text" id="location" placeholder="e.g. India">
-
-        <label for="category">Category</label>
-        <select id="category">
-          <option value="all">All</option>
-          <option value="tech">Tech</option>
-          <option value="finance">Finance</option>
-        </select>
-
-        <button onclick="filterJobs()" style="margin-top: 16px;">Apply Filters</button>
-      </div>
-
-      <div class="jobs" id="jobCards">
-        <div class="job-card" data-type="full-time" data-location="india" data-category="tech">
-          <h4>Frontend Developer</h4>
-          <p>Full-Time | Bengaluru, India</p>
-          <p>Tech Department</p>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Find Your Dream Career</h1>
+                <p>Discover thousands of job opportunities from top companies worldwide. Your next career move starts here.</p>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search jobs, companies, or keywords...">
+                    <button class="search-button">Search Jobs</button>
+                </div>
+            </div>
         </div>
-        <div class="job-card" data-type="part-time" data-location="usa" data-category="finance">
-          <h4>Financial Analyst Intern</h4>
-          <p>Part-Time | New York, USA</p>
-          <p>Finance Department</p>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <h2 class="section-title">Featured Opportunities</h2>
+            
+            <div class="content-wrapper">
+                <!-- Filters Sidebar -->
+                <aside class="filters-sidebar">
+                    <h3 class="filters-title">Filters</h3>
+                    
+                    <div class="filter-group">
+                        <label class="filter-label" for="searchFilter">Search</label>
+                        <input type="text" id="searchFilter" class="filter-input" placeholder="Job title, company, keywords...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label" for="typeFilter">Job Type</label>
+                        <select id="typeFilter" class="filter-select">
+                            <option value="">All Types</option>
+                            <option value="full-time">Full-time</option>
+                            <option value="part-time">Part-time</option>
+                            <option value="contract">Contract</option>
+                            <option value="internship">Internship</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label" for="locationFilter">Location</label>
+                        <select id="locationFilter" class="filter-select">
+                            <option value="">All Locations</option>
+                            <option value="remote">Remote</option>
+                            <option value="on-site">On-site</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="us">United States</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="canada">Canada</option>
+                            <option value="europe">Europe</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label" for="categoryFilter">Category</label>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">All Categories</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="design">Design</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="sales">Sales</option>
+                            <option value="finance">Finance</option>
+                            <option value="hr">Human Resources</option>
+                            <option value="data">Data Science</option>
+                            <option value="product">Product</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Salary Range</label>
+                        <div class="salary-range">
+                            <input type="number" id="salaryMin" class="filter-input" placeholder="Min" min="0">
+                            <span class="salary-separator">-</span>
+                            <input type="number" id="salaryMax" class="filter-input" placeholder="Max" min="0">
+                        </div>
+                    </div>
+
+                    <button class="clear-filters" id="clearFilters">Clear All Filters</button>
+                </aside>
+
+                <!-- Jobs Content -->
+                <div class="jobs-content">
+                    <div class="jobs-grid" id="jobsGrid">
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="company-logo">ZF</div>
+                        <div class="job-info">
+                            <h3>Senior Software Engineer</h3>
+                            <div class="company-name">ZF Automotive</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">Full-time</span>
+                        <span class="job-tag">On-site</span>
+                        <span class="job-tag">Auburn Hills, MI</span>
+                        <span class="job-tag salary">$120K - $160K</span>
+                    </div>
+                    <p class="job-description">Join our innovative team working on next-generation automotive software solutions. Lead development of critical safety systems and autonomous driving features.</p>
+                    <div class="job-footer">
+                        <span class="posted-time">10 hours ago</span>
+                        <button class="apply-button">Apply Now</button>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="company-logo">NG</div>
+                        <div class="job-info">
+                            <h3>Energy Systems Analyst</h3>
+                            <div class="company-name">National Grid</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">Full-time</span>
+                        <span class="job-tag">On-site</span>
+                        <span class="job-tag">United Kingdom</span>
+                        <span class="job-tag salary">£55K - £75K</span>
+                    </div>
+                    <p class="job-description">Analyze and optimize energy distribution systems across the UK. Work with cutting-edge smart grid technology and renewable energy integration.</p>
+                    <div class="job-footer">
+                        <span class="posted-time">10 hours ago</span>
+                        <button class="apply-button">Apply Now</button>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="company-logo">EM</div>
+                        <div class="job-info">
+                            <h3>Chemical Process Engineer</h3>
+                            <div class="company-name">ExxonMobil</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">Full-time</span>
+                        <span class="job-tag">On-site</span>
+                        <span class="job-tag">Leatherhead, UK</span>
+                        <span class="job-tag salary">£70K - £95K</span>
+                    </div>
+                    <p class="job-description">Lead process optimization initiatives in our advanced refining operations. Drive innovation in sustainable energy solutions and operational excellence.</p>
+                    <div class="job-footer">
+                        <span class="posted-time">10 hours ago</span>
+                        <button class="apply-button">Apply Now</button>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="company-logo">AN</div>
+                        <div class="job-info">
+                            <h3>Senior Data Scientist</h3>
+                            <div class="company-name">Anaplan</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">Full-time</span>
+                        <span class="job-tag">Remote</span>
+                        <span class="job-tag">San Francisco, CA</span>
+                        <span class="job-tag salary">$132K - $179K</span>
+                    </div>
+                    <p class="job-description">Build machine learning models to enhance our planning platform. Work with big data to deliver insights that drive business decisions for Fortune 500 companies.</p>
+                    <div class="job-footer">
+                        <span class="posted-time">5 days ago</span>
+                        <button class="apply-button">Apply Now</button>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="company-logo">CV</div>
+                        <div class="job-info">
+                            <h3>Product Manager</h3>
+                            <div class="company-name">Carvana</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">Full-time</span>
+                        <span class="job-tag">Hybrid</span>
+                        <span class="job-tag">Roseville, CA</span>
+                        <span class="job-tag salary">$110K - $140K</span>
+                    </div>
+                    <p class="job-description">Drive product strategy for our revolutionary online car buying platform. Lead cross-functional teams to deliver exceptional customer experiences.</p>
+                    <div class="job-footer">
+                        <span class="posted-time">7 days ago</span>
+                        <button class="apply-button">Apply Now</button>
+                    </div>
+                </div>
+
+                <div class="job-card">
+                    <div class="job-header">
+                        <div class="company-logo">EC</div>
+                        <div class="job-info">
+                            <h3>Financial Systems Specialist</h3>
+                            <div class="company-name">Euroclear</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">Full-time</span>
+                        <span class="job-tag">On-site</span>
+                        <span class="job-tag">Krakow, Poland</span>
+                        <span class="job-tag salary">€45K - €65K</span>
+                    </div>
+                    <p class="job-description">Manage critical financial infrastructure systems supporting global securities transactions. Ensure operational excellence in high-stakes trading environments.</p>
+                    <div class="job-footer">
+                        <span class="posted-time">8 days ago</span>
+                        <button class="apply-button">Apply Now</button>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Modal -->
+            <div class="job-modal" id="jobModal">
+                <div class="modal-content">
+                    <button class="modal-close" id="modalClose">&times;</button>
+                    
+                    <div class="modal-header">
+                        <div class="modal-company-logo" id="modalCompanyLogo">ZF</div>
+                        <div class="modal-job-info">
+                            <h2 id="modalJobTitle">Senior Software Engineer</h2>
+                            <div class="modal-company-name" id="modalCompanyName">ZF Automotive</div>
+                            <div class="modal-job-tags" id="modalJobTags">
+                                <span class="modal-job-tag">Full-time</span>
+                                <span class="modal-job-tag">On-site</span>
+                                <span class="modal-job-tag">Auburn Hills, MI</span>
+                                <span class="modal-job-tag modal-salary">$120K - $160K</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Job Description</h3>
+                        <p id="modalJobDescription">
+                            Join our innovative team working on next-generation automotive software solutions. Lead development of critical safety systems and autonomous driving features. You'll be responsible for architecting scalable solutions, mentoring junior developers, and collaborating with cross-functional teams to deliver high-quality software products.
+                        </p>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Key Responsibilities</h3>
+                        <ul id="modalResponsibilities">
+                            <li>Design and develop automotive software systems using C++ and Python</li>
+                            <li>Lead code reviews and ensure adherence to coding standards</li>
+                            <li>Collaborate with hardware teams on system integration</li>
+                            <li>Mentor junior engineers and contribute to team growth</li>
+                            <li>Participate in agile development processes and sprint planning</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Requirements</h3>
+                        <ul id="modalRequirements">
+                            <li>Bachelor's degree in Computer Science or related field</li>
+                            <li>5+ years of experience in software development</li>
+                            <li>Proficiency in C++, Python, and embedded systems</li>
+                            <li>Experience with automotive industry standards (ISO 26262)</li>
+                            <li>Strong problem-solving and communication skills</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Benefits</h3>
+                        <ul id="modalBenefits">
+                            <li>Competitive salary and annual bonus</li>
+                            <li>Comprehensive health, dental, and vision insurance</li>
+                            <li>401(k) with company matching</li>
+                            <li>Flexible work arrangements</li>
+                            <li>Professional development opportunities</li>
+                        </ul>
+                    </div>
+
+                    <!-- Application Form -->
+                    <div class="apply-form">
+                        <h3>Apply for this Position</h3>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="applicantName">Full Name *</label>
+                            <input type="text" id="applicantName" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="applicantEmail">Email Address *</label>
+                            <input type="email" id="applicantEmail" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="applicantPhone">Phone Number</label>
+                            <input type="tel" id="applicantPhone" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="applicantLinkedIn">LinkedIn Profile</label>
+                            <input type="url" id="applicantLinkedIn" class="form-input" placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="coverLetter">Cover Letter</label>
+                            <textarea id="coverLetter" class="form-textarea" placeholder="Tell us why you're interested in this role and what makes you a great fit..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Resume *</label>
+                            <div class="file-upload" id="resumeUpload">
+                                <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" style="display: none;">
+                                <div class="file-upload-text">
+                                    📄 Click to upload your resume<br>
+                                    <small>Supports PDF, DOC, DOCX (Max 5MB)</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-application" id="submitApplication">
+                            Submit Application
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="newsletter">
+                <div class="container">
+                    <h2>Get Jobs Delivered to Your Inbox</h2>
+                    <p>Stay ahead of the competition with our curated job alerts. Be the first to know about new opportunities that match your skills.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email address">
+                        <button type="submit" class="cta-button">Subscribe</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="job-card" data-type="full-time" data-location="france" data-category="tech">
-          <h4>Cloud Engineer</h4>
-          <p>Full-Time | Paris, France</p>
-          <p>Tech Department</p>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>For Job Seekers</h3>
+                    <ul>
+                        <li><a href="#">Browse Jobs</a></li>
+                        <li><a href="#">Career Advice</a></li>
+                        <li><a href="#">Resume Builder</a></li>
+                        <li><a href="#">Salary Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>For Employers</h3>
+                    <ul>
+                        <li><a href="#">Post a Job</a></li>
+                        <li><a href="#">Talent Solutions</a></li>
+                        <li><a href="#">Recruitment Services</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Zeus Careers. All rights reserved. Connecting talent with opportunity.</p>
+            </div>
         </div>
-        <div class="job-card" data-type="full-time" data-location="india" data-category="finance">
-          <h4>Accounting Manager</h4>
-          <p>Full-Time | Mumbai, India</p>
-          <p>Finance Department</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    </footer>
 
-  <script>
-    function filterJobs() {
-      const type = document.getElementById('type').value;
-      const location = document.getElementById('location').value.toLowerCase();
-      const category = document.getElementById('category').value;
+    <script>
+        // Job data
+        const jobsData = [
+            {
+                id: 1,
+                title: "Senior Software Engineer",
+                company: "ZF Automotive",
+                logo: "ZF",
+                location: "Auburn Hills, MI",
+                type: "full-time",
+                workType: "on-site",
+                category: "engineering",
+                salary: "$120K - $160K",
+                salaryMin: 120000,
+                salaryMax: 160000,
+                description: "Join our innovative team working on next-generation automotive software solutions. Lead development of critical safety systems and autonomous driving features.",
+                fullDescription: "Join our innovative team working on next-generation automotive software solutions. Lead development of critical safety systems and autonomous driving features. You'll be responsible for architecting scalable solutions, mentoring junior developers, and collaborating with cross-functional teams to deliver high-quality software products.",
+                responsibilities: [
+                    "Design and develop automotive software systems using C++ and Python",
+                    "Lead code reviews and ensure adherence to coding standards",
+                    "Collaborate with hardware teams on system integration",
+                    "Mentor junior engineers and contribute to team growth",
+                    "Participate in agile development processes and sprint planning"
+                ],
+                requirements: [
+                    "Bachelor's degree in Computer Science or related field",
+                    "5+ years of experience in software development",
+                    "Proficiency in C++, Python, and embedded systems",
+                    "Experience with automotive industry standards (ISO 26262)",
+                    "Strong problem-solving and communication skills"
+                ],
+                benefits: [
+                    "Competitive salary and annual bonus",
+                    "Comprehensive health, dental, and vision insurance",
+                    "401(k) with company matching",
+                    "Flexible work arrangements",
+                    "Professional development opportunities"
+                ],
+                postedTime: "10 hours ago"
+            },
+            {
+                id: 2,
+                title: "Energy Systems Analyst",
+                company: "National Grid",
+                logo: "NG",
+                location: "United Kingdom",
+                type: "full-time",
+                workType: "on-site",
+                category: "engineering",
+                salary: "£55K - £75K",
+                salaryMin: 55000,
+                salaryMax: 75000,
+                description: "Analyze and optimize energy distribution systems across the UK. Work with cutting-edge smart grid technology and renewable energy integration.",
+                fullDescription: "Analyze and optimize energy distribution systems across the UK. Work with cutting-edge smart grid technology and renewable energy integration. You'll be at the forefront of the energy transition, developing innovative solutions for a sustainable future.",
+                responsibilities: [
+                    "Analyze energy consumption patterns and grid performance",
+                    "Develop optimization models for energy distribution",
+                    "Collaborate on renewable energy integration projects",
+                    "Create reports and presentations for stakeholders",
+                    "Support grid modernization initiatives"
+                ],
+                requirements: [
+                    "Master's degree in Engineering or related field",
+                    "3+ years of experience in energy systems",
+                    "Knowledge of power systems analysis",
+                    "Experience with MATLAB, Python, or similar tools",
+                    "Understanding of renewable energy technologies"
+                ],
+                benefits: [
+                    "Competitive salary and pension scheme",
+                    "Health and wellness programs",
+                    "Professional development budget",
+                    "Flexible working hours",
+                    "Employee share scheme"
+                ],
+                postedTime: "10 hours ago"
+            },
+            {
+                id: 3,
+                title: "Chemical Process Engineer",
+                company: "ExxonMobil",
+                logo: "EM",
+                location: "Leatherhead, UK",
+                type: "full-time",
+                workType: "on-site",
+                category: "engineering",
+                salary: "£70K - £95K",
+                salaryMin: 70000,
+                salaryMax: 95000,
+                description: "Lead process optimization initiatives in our advanced refining operations. Drive innovation in sustainable energy solutions and operational excellence.",
+                fullDescription: "Lead process optimization initiatives in our advanced refining operations. Drive innovation in sustainable energy solutions and operational excellence. You'll work on cutting-edge technologies to improve efficiency and reduce environmental impact.",
+                responsibilities: [
+                    "Optimize chemical processes for maximum efficiency",
+                    "Lead process safety and environmental initiatives",
+                    "Design and implement process improvements",
+                    "Collaborate with operations and maintenance teams",
+                    "Support new technology development projects"
+                ],
+                requirements: [
+                    "Bachelor's degree in Chemical Engineering",
+                    "5+ years of process engineering experience",
+                    "Knowledge of process simulation software",
+                    "Experience in oil and gas industry",
+                    "Strong analytical and problem-solving skills"
+                ],
+                benefits: [
+                    "Competitive compensation package",
+                    "Comprehensive benefits including healthcare",
+                    "Retirement savings plan with matching",
+                    "Career development opportunities",
+                    "Performance-based bonuses"
+                ],
+                postedTime: "10 hours ago"
+            },
+            {
+                id: 4,
+                title: "Senior Data Scientist",
+                company: "Anaplan",
+                logo: "AN",
+                location: "San Francisco, CA",
+                type: "full-time",
+                workType: "remote",
+                category: "data",
+                salary: "$132K - $179K",
+                salaryMin: 132000,
+                salaryMax: 179000,
+                description: "Build machine learning models to enhance our planning platform. Work with big data to deliver insights that drive business decisions for Fortune 500 companies.",
+                fullDescription: "Build machine learning models to enhance our planning platform. Work with big data to deliver insights that drive business decisions for Fortune 500 companies. You'll be part of a team that's revolutionizing business planning with AI and advanced analytics.",
+                responsibilities: [
+                    "Develop and deploy machine learning models",
+                    "Analyze large datasets to extract business insights",
+                    "Collaborate with product teams on feature development",
+                    "Build predictive analytics solutions",
+                    "Mentor junior data scientists"
+                ],
+                requirements: [
+                    "PhD in Data Science, Statistics, or related field",
+                    "5+ years of machine learning experience",
+                    "Proficiency in Python, R, and SQL",
+                    "Experience with cloud platforms (AWS, GCP)",
+                    "Strong communication and presentation skills"
+                ],
+                benefits: [
+                    "Competitive salary and equity package",
+                    "Comprehensive health, dental, and vision",
+                    "Unlimited PTO policy",
+                    "Professional development budget",
+                    "Remote work flexibility"
+                ],
+                postedTime: "5 days ago"
+            },
+            {
+                id: 5,
+                title: "Product Manager",
+                company: "Carvana",
+                logo: "CV",
+                location: "Roseville, CA",
+                type: "full-time",
+                workType: "hybrid",
+                category: "product",
+                salary: "$110K - $140K",
+                salaryMin: 110000,
+                salaryMax: 140000,
+                description: "Drive product strategy for our revolutionary online car buying platform. Lead cross-functional teams to deliver exceptional customer experiences.",
+                fullDescription: "Drive product strategy for our revolutionary online car buying platform. Lead cross-functional teams to deliver exceptional customer experiences. You'll shape the future of automotive retail through innovative digital solutions.",
+                responsibilities: [
+                    "Define and execute product roadmap",
+                    "Conduct market research and competitive analysis",
+                    "Collaborate with engineering and design teams",
+                    "Analyze product metrics and user feedback",
+                    "Present to executive leadership and stakeholders"
+                ],
+                requirements: [
+                    "Bachelor's degree in Business or related field",
+                    "3+ years of product management experience",
+                    "Experience with consumer-facing products",
+                    "Strong analytical and data-driven mindset",
+                    "Excellent communication and leadership skills"
+                ],
+                benefits: [
+                    "Competitive salary and stock options",
+                    "Health, dental, and vision insurance",
+                    "401(k) with company match",
+                    "Flexible work arrangements",
+                    "Employee car purchase discounts"
+                ],
+                postedTime: "7 days ago"
+            },
+            {
+                id: 6,
+                title: "Financial Systems Specialist",
+                company: "Euroclear",
+                logo: "EC",
+                location: "Krakow, Poland",
+                type: "full-time",
+                workType: "on-site",
+                category: "finance",
+                salary: "€45K - €65K",
+                salaryMin: 45000,
+                salaryMax: 65000,
+                description: "Manage critical financial infrastructure systems supporting global securities transactions. Ensure operational excellence in high-stakes trading environments.",
+                fullDescription: "Manage critical financial infrastructure systems supporting global securities transactions. Ensure operational excellence in high-stakes trading environments. You'll be part of a team that processes trillions of euros in transactions daily.",
+                responsibilities: [
+                    "Maintain and optimize financial systems",
+                    "Monitor transaction processing and system performance",
+                    "Collaborate with global operations teams",
+                    "Implement system upgrades and enhancements",
+                    "Ensure compliance with financial regulations"
+                ],
+                requirements: [
+                    "Bachelor's degree in Finance or IT",
+                    "3+ years of financial systems experience",
+                    "Knowledge of securities processing",
+                    "Experience with SQL and database management",
+                    "Understanding of financial markets"
+                ],
+                benefits: [
+                    "Competitive salary and annual bonus",
+                    "Private healthcare coverage",
+                    "Pension scheme with employer contribution",
+                    "Professional training and certifications",
+                    "International career opportunities"
+                ],
+                postedTime: "8 days ago"
+            }
+        ];
 
-      const cards = document.querySelectorAll('.job-card');
+        let filteredJobs = [...jobsData];
 
-      cards.forEach(card => {
-        const cardType = card.getAttribute('data-type');
-        const cardLocation = card.getAttribute('data-location');
-        const cardCategory = card.getAttribute('data-category');
+        // DOM elements
+        const jobsGrid = document.getElementById('jobsGrid');
+        const jobModal = document.getElementById('jobModal');
+        const modalClose = document.getElementById('modalClose');
+        const searchFilter = document.getElementById('searchFilter');
+        const typeFilter = document.getElementById('typeFilter');
+        const locationFilter = document.getElementById('locationFilter');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const salaryMin = document.getElementById('salaryMin');
+        const salaryMax = document.getElementById('salaryMax');
+        const clearFilters = document.getElementById('clearFilters');
 
-        const typeMatch = (type === 'all' || cardType === type);
-        const locationMatch = (location === '' || cardLocation.includes(location));
-        const categoryMatch = (category === 'all' || cardCategory === category);
-
-        if (typeMatch && locationMatch && categoryMatch) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
+        // Render jobs
+        function renderJobs(jobs) {
+            jobsGrid.innerHTML = jobs.map(job => `
+                <div class="job-card" data-job-id="${job.id}">
+                    <div class="job-header">
+                        <div class="company-logo">${job.logo}</div>
+                        <div class="job-info">
+                            <h3>${job.title}</h3>
+                            <div class="company-name">${job.company}</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</span>
+                        <span class="job-tag">${job.workType.charAt(0).toUpperCase() + job.workType.slice(1)}</span>
+                        <span class="job-tag">${job.location}</span>
+                        <span class="job-tag salary">${job.salary}</span>
+                    </div>
+                    <p class="job-description">${job.description}</p>
+                    <div class="job-footer">
+                        <span class="posted-time">${job.postedTime}</span>
+                        <button class="apply-button" onclick="openJobModal(${job.id})">Apply Now</button>
+                    </div>
+                </div>
+            `).join('');
         }
-      });
-    }
 
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark');
-    }
-  </script>
+        // Open job modal
+        function openJobModal(jobId) {
+            const job = jobsData.find(j => j.id === jobId);
+            if (!job) return;
+
+            // Populate modal with job data
+            document.getElementById('modalCompanyLogo').textContent = job.logo;
+            document.getElementById('modalJobTitle').textContent = job.title;
+            document.getElementById('modalCompanyName').textContent = job.company;
+            document.getElementById('modalJobDescription').textContent = job.fullDescription;
+            
+            // Update job tags
+            const modalJobTags = document.getElementById('modalJobTags');
+            modalJobTags.innerHTML = `
+                <span class="modal-job-tag">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</span>
+                <span class="modal-job-tag">${job.workType.charAt(0).toUpperCase() + job.workType.slice(1)}</span>
+                <span class="modal-job-tag">${job.location}</span>
+                <span class="modal-job-tag modal-salary">${job.salary}</span>
+            `;
+
+            // Update responsibilities
+            const modalResponsibilities = document.getElementById('modalResponsibilities');
+            modalResponsibilities.innerHTML = job.responsibilities.map(item => `<li>${item}</li>`).join('');
+
+            // Update requirements
+            const modalRequirements = document.getElementById('modalRequirements');
+            modalRequirements.innerHTML = job.requirements.map(item => `<li>${item}</li>`).join('');
+
+            // Update benefits
+            const modalBenefits = document.getElementById('modalBenefits');
+            modalBenefits.innerHTML = job.benefits.map(item => `<li>${item}</li>`).join('');
+
+            // Show modal and blur background
+            jobModal.classList.add('active');
+            document.querySelector('.main-content').classList.add('blur-background');
+            document.querySelector('header').classList.add('blur-background');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close job modal
+        function closeJobModal() {
+            jobModal.classList.remove('active');
+            document.querySelector('.main-content').classList.remove('blur-background');
+            document.querySelector('header').classList.remove('blur-background');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Filter jobs
+        function filterJobs() {
+            const searchTerm = searchFilter.value.toLowerCase();
+            const selectedType = typeFilter.value;
+            const selectedLocation = locationFilter.value;
+            const selectedCategory = categoryFilter.value;
+            const minSalary = parseInt(salaryMin.value) || 0;
+            const maxSalary = parseInt(salaryMax.value) || Infinity;
+
+            filteredJobs = jobsData.filter(job => {
+                const matchesSearch = !searchTerm || 
+                    job.title.toLowerCase().includes(searchTerm) ||
+                    job.company.toLowerCase().includes(searchTerm) ||
+                    job.description.toLowerCase().includes(searchTerm);
+
+                const matchesType = !selectedType || job.type === selectedType;
+                
+                const matchesLocation = !selectedLocation || 
+                    job.workType === selectedLocation ||
+                    job.location.toLowerCase().includes(selectedLocation);
+
+                const matchesCategory = !selectedCategory || job.category === selectedCategory;
+
+                const matchesSalary = job.salaryMin >= minSalary && job.salaryMax <= maxSalary;
+
+                return matchesSearch && matchesType && matchesLocation && matchesCategory && matchesSalary;
+            });
+
+            renderJobs(filteredJobs);
+        }
+
+        // Clear all filters
+        function clearAllFilters() {
+            searchFilter.value = '';
+            typeFilter.value = '';
+            locationFilter.value = '';
+            categoryFilter.value = '';
+            salaryMin.value = '';
+            salaryMax.value = '';
+            filteredJobs = [...jobsData];
+            renderJobs(filteredJobs);
+        }
+
+        // Event listeners
+        modalClose.addEventListener('click', closeJobModal);
+        jobModal.addEventListener('click', (e) => {
+            if (e.target === jobModal) closeJobModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && jobModal.classList.contains('active')) {
+                closeJobModal();
+            }
+        });
+
+        // Filter event listeners
+        searchFilter.addEventListener('input', filterJobs);
+        typeFilter.addEventListener('change', filterJobs);
+        locationFilter.addEventListener('change', filterJobs);
+        categoryFilter.addEventListener('change', filterJobs);
+        salaryMin.addEventListener('input', filterJobs);
+        salaryMax.addEventListener('input', filterJobs);
+        clearFilters.addEventListener('click', clearAllFilters);
+
+        // File upload handler
+        document.getElementById('resumeUpload').addEventListener('click', () => {
+            document.getElementById('resumeFile').click();
+        });
+
+        document.getElementById('resumeFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const uploadText = document.querySelector('.file-upload-text');
+                uploadText.innerHTML = `
+                    ✅ ${file.name}<br>
+                    <small>File selected successfully</small>
+                `;
+            }
+        });
+
+        // Application form submission
+        document.getElementById('submitApplication').addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('applicantName').value;
+            const email = document.getElementById('applicantEmail').value;
+            const resumeFile = document.getElementById('resumeFile').files[0];
+
+            if (!name || !email || !resumeFile) {
+                alert('Please fill in all required fields and upload your resume.');
+                return;
+            }
+
+            alert('Application submitted successfully! We will review your application and get back to you soon.');
+            closeJobModal();
+            
+            // Reset form
+            document.getElementById('applicantName').value = '';
+            document.getElementById('applicantEmail').value = '';
+            document.getElementById('applicantPhone').value = '';
+            document.getElementById('applicantLinkedIn').value = '';
+            document.getElementById('coverLetter').value = '';
+            document.getElementById('resumeFile').value = '';
+            document.querySelector('.file-upload-text').innerHTML = `
+                📄 Click to upload your resume<br>
+                <small>Supports PDF, DOC, DOCX (Max 5MB)</small>
+            `;
+        });
+
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add search functionality
+        document.querySelector('.search-button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm.trim()) {
+                searchFilter.value = searchTerm;
+                filterJobs();
+                document.querySelector('.jobs-grid').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+
+        // Add newsletter subscription
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('.newsletter-input').value;
+            if (email.trim() && email.includes('@')) {
+                alert(`Thank you for subscribing with email: ${email}`);
+                document.querySelector('.newsletter-input').value = '';
+            } else {
+                alert('Please enter a valid email address');
+            }
+        });
+
+        // Add hover effects and animations
+        jobsGrid.addEventListener('mouseenter', function(e) {
+            if (e.target.closest('.job-card')) {
+                e.target.closest('.job-card').style.transform = 'translateY(-8px) scale(1.02)';
+            }
+        }, true);
+        
+        jobsGrid.addEventListener('mouseleave', function(e) {
+            if (e.target.closest('.job-card')) {
+                e.target.closest('.job-card').style.transform = 'translateY(0) scale(1)';
+            }
+        }, true);
+
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark');
+            
+            if (body.classList.contains('dark')) {
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Initialize the page
+        renderJobs(filteredJobs);
+
+        // Make openJobModal globally accessible
+        window.openJobModal = openJobModal;
+    </script>
 </body>
 </html>
