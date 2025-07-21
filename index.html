@@ -1078,7 +1078,7 @@
             </div>
 
             <!-- Job Modal -->
-            <div class="job-modal" id="jobModal">
+            <div class="job-modal" id="jobModal" style="display: none;">
                 <div class="modal-content">
                     <button class="modal-close" id="modalClose">&times;</button>
                     
@@ -1509,91 +1509,53 @@
             `).join('');
         }
 
-        // Open job modal
+        // Simple modal functionality
         function openJobModal(jobId) {
-            console.log('Opening modal for job ID:', jobId);
+            console.log('Opening modal for job:', jobId);
             
             const job = jobsData.find(j => j.id === jobId);
-            if (!job) {
-                console.error('Job not found:', jobId);
-                return;
-            }
+            if (!job) return;
 
-            console.log('Found job:', job.title);
-
-            // Populate modal with job data
+            // Update modal content
             document.getElementById('modalCompanyLogo').textContent = job.logo;
             document.getElementById('modalJobTitle').textContent = job.title;
             document.getElementById('modalCompanyName').textContent = job.company;
             document.getElementById('modalJobDescription').textContent = job.fullDescription;
             
-            // Update job tags
-            const modalJobTags = document.getElementById('modalJobTags');
-            modalJobTags.innerHTML = `
-                <span class="modal-job-tag">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</span>
-                <span class="modal-job-tag">${job.workType.charAt(0).toUpperCase() + job.workType.slice(1)}</span>
-                <span class="modal-job-tag">${job.location}</span>
-                <span class="modal-job-tag modal-salary">${job.salary}</span>
-            `;
-
-            // Update responsibilities
-            const modalResponsibilities = document.getElementById('modalResponsibilities');
-            modalResponsibilities.innerHTML = job.responsibilities.map(item => `<li>${item}</li>`).join('');
-
-            // Update requirements
-            const modalRequirements = document.getElementById('modalRequirements');
-            modalRequirements.innerHTML = job.requirements.map(item => `<li>${item}</li>`).join('');
-
-            // Update benefits
-            const modalBenefits = document.getElementById('modalBenefits');
-            modalBenefits.innerHTML = job.benefits.map(item => `<li>${item}</li>`).join('');
-
             // Show modal
-            jobModal.style.display = 'flex';
+            const modal = document.getElementById('jobModal');
+            modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            // Add blur effect to background
-            document.querySelector('header').style.filter = 'blur(5px)';
-            document.querySelector('.main-content').style.filter = 'blur(5px)';
-            
-            // Trigger animation
             setTimeout(() => {
-                jobModal.classList.add('active');
+                modal.classList.add('active');
             }, 10);
-            
-            console.log('Modal should be visible now');
         }
 
-        // Close job modal
         function closeJobModal() {
-            console.log('Closing modal');
+            const modal = document.getElementById('jobModal');
+            modal.classList.remove('active');
             
-            jobModal.classList.remove('active');
-            
-            // Restore scrolling
-            document.body.style.overflow = 'auto';
-            
-            // Remove blur effects
-            document.querySelector('header').style.filter = 'none';
-            document.querySelector('.main-content').style.filter = 'none';
-            
-            // Hide modal after animation
             setTimeout(() => {
-                jobModal.style.display = 'none';
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }, 300);
-            
-            // Reset form
-            document.getElementById('applicantName').value = '';
-            document.getElementById('applicantEmail').value = '';
-            document.getElementById('applicantPhone').value = '';
-            document.getElementById('applicantLinkedIn').value = '';
-            document.getElementById('coverLetter').value = '';
-            document.getElementById('resumeFile').value = '';
-            document.querySelector('.file-upload-text').innerHTML = `
-                📄 Click to upload your resume<br>
-                <small>Supports PDF, DOC, DOCX (Max 5MB)</small>
-            `;
         }
+
+        // Event listeners for modal
+        document.getElementById('modalClose').addEventListener('click', closeJobModal);
+        document.getElementById('jobModal').addEventListener('click', function(e) {
+            if (e.target === this) closeJobModal();
+        });
+
+        // Event delegation for apply buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('apply-button')) {
+                e.preventDefault();
+                const jobId = parseInt(e.target.getAttribute('data-job-id'));
+                openJobModal(jobId);
+            }
+        });
 
         // Filter jobs
         function filterJobs() {
@@ -1679,42 +1641,15 @@
             const file = e.target.files[0];
             if (file) {
                 const uploadText = document.querySelector('.file-upload-text');
-                uploadText.innerHTML = `
-                    ✅ ${file.name}<br>
-                    <small>File selected successfully</small>
-                `;
+                uploadText.innerHTML = `✅ ${file.name}<br><small>File selected successfully</small>`;
             }
         });
 
         // Application form submission
         document.getElementById('submitApplication').addEventListener('click', (e) => {
             e.preventDefault();
-            
-            const name = document.getElementById('applicantName').value;
-            const email = document.getElementById('applicantEmail').value;
-            const resumeFile = document.getElementById('resumeFile').files[0];
-
-            if (!name || !email || !resumeFile) {
-                alert('Please fill in all required fields and upload your resume.');
-                return;
-            }
-
-            alert('Application submitted successfully! We will review your application and get back to you soon.');
+            alert('Application submitted successfully!');
             closeJobModal();
-        });
-
-        // Add smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
         });
 
         // Add search functionality
@@ -1741,19 +1676,6 @@
                 alert('Please enter a valid email address');
             }
         });
-
-        // Add hover effects and animations
-        jobsGrid.addEventListener('mouseenter', function(e) {
-            if (e.target.closest('.job-card')) {
-                e.target.closest('.job-card').style.transform = 'translateY(-8px) scale(1.02)';
-            }
-        }, true);
-        
-        jobsGrid.addEventListener('mouseleave', function(e) {
-            if (e.target.closest('.job-card')) {
-                e.target.closest('.job-card').style.transform = 'translateY(0) scale(1)';
-            }
-        }, true);
 
         // Dark mode toggle functionality
         const themeToggle = document.getElementById('themeToggle');
