@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ZeusCareers | Job Board</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #407BFF;
       --bg-light: #f4f7ff;
-      --text: #111;
-      --subtext: #555;
+      --bg-dark: #0f172a;
+      --text-light: #111;
+      --text-dark: #e2e8f0;
+      --subtext-light: #555;
+      --subtext-dark: #94a3b8;
       --border: #dcdcdc;
-      --card-bg: #fff;
+      --card-bg-light: #fff;
+      --card-bg-dark: #1e293b;
       --radius: 14px;
     }
 
@@ -22,10 +26,16 @@
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-light);
-      color: var(--text);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     .container {
@@ -45,14 +55,39 @@
     }
 
     .header img {
-      height: 70px;
+      height: 80px;
     }
 
     .banner-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.4rem;
+      font-family: 'Titillium Web', sans-serif;
+      font-size: 1.6rem;
       color: #222;
       text-shadow: 1px 1px 0 #ffffffcc;
+      position: relative;
+      overflow: hidden;
+      animation: lightningFlash 4s infinite;
+    }
+
+    .zeus {
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    @keyframes lightningFlash {
+      0%, 95%, 100% {
+        background-color: transparent;
+        color: #222;
+        text-shadow: none;
+      }
+      96%, 98% {
+        background-color: #fff;
+        color: #facc15;
+        text-shadow: 0 0 6px #facc15, 0 0 20px #facc15;
+      }
+      97%, 99% {
+        background-color: transparent;
+        color: #222;
+      }
     }
 
     .nav a {
@@ -62,11 +97,32 @@
       font-weight: 600;
     }
 
+    .toggle-wrapper {
+      position: absolute;
+      top: 16px;
+      right: 40px;
+    }
+
+    .toggle-wrapper button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
     .filters {
-      background: var(--card-bg);
+      background: var(--card-bg-light);
       border-radius: var(--radius);
       padding: 24px;
       margin-bottom: 24px;
+      transition: background 0.3s;
+    }
+
+    body.dark .filters {
+      background: var(--card-bg-dark);
     }
 
     .filters h3 {
@@ -84,6 +140,13 @@
       margin-top: 4px;
       border: 1px solid var(--border);
       border-radius: 6px;
+      background-color: #fff;
+    }
+
+    body.dark .filters input,
+    body.dark .filters select {
+      background-color: #334155;
+      color: var(--text-dark);
     }
 
     .job-listings {
@@ -99,13 +162,18 @@
     }
 
     .job-card {
-      position: relative;
       background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
       padding: 24px 28px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
       transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    body.dark .job-card {
+      background: #1e293b;
+      color: var(--text-dark);
+      border: 1px solid #334155;
     }
 
     .job-card:hover {
@@ -120,9 +188,16 @@
       color: #1e40af;
     }
 
+    body.dark .job-card h4 {
+      color: #60a5fa;
+    }
+
     .job-card p {
-      color: var(--subtext);
-      margin-bottom: 6px;
+      color: var(--subtext-light);
+    }
+
+    body.dark .job-card p {
+      color: var(--subtext-dark);
     }
 
     .hidden {
@@ -133,7 +208,10 @@
 <body>
   <div class="header">
     <img src="zeus-logo.png" alt="ZeusCareers">
-    <div class="banner-text">⚡ ZeusCareers: Unleashing Potential, One Job at a Time ⚡</div>
+    <div class="banner-text"><span class="zeus">Zeus</span>Careers: Unleashing Potential, One Job at a Time</div>
+    <div class="toggle-wrapper">
+      <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </div>
   </div>
 
   <div class="container">
@@ -157,30 +235,27 @@
           <option value="finance">Finance</option>
         </select>
 
-        <button onclick="filterJobs()" style="margin-top: 16px; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 6px;">Apply Filters</button>
+        <button onclick="filterJobs()" style="margin-top: 16px;">Apply Filters</button>
       </div>
 
       <div class="jobs" id="jobCards">
         <div class="job-card" data-type="full-time" data-location="india" data-category="tech">
-          <h4>🚀 Frontend Developer</h4>
+          <h4>Frontend Developer</h4>
           <p>Full-Time | Bengaluru, India</p>
           <p>Tech Department</p>
         </div>
-
         <div class="job-card" data-type="part-time" data-location="usa" data-category="finance">
-          <h4>📊 Financial Analyst Intern</h4>
+          <h4>Financial Analyst Intern</h4>
           <p>Part-Time | New York, USA</p>
           <p>Finance Department</p>
         </div>
-
         <div class="job-card" data-type="full-time" data-location="france" data-category="tech">
-          <h4>☁️ Cloud Engineer</h4>
+          <h4>Cloud Engineer</h4>
           <p>Full-Time | Paris, France</p>
           <p>Tech Department</p>
         </div>
-
         <div class="job-card" data-type="full-time" data-location="india" data-category="finance">
-          <h4>💼 Accounting Manager</h4>
+          <h4>Accounting Manager</h4>
           <p>Full-Time | Mumbai, India</p>
           <p>Finance Department</p>
         </div>
@@ -211,6 +286,10 @@
           card.classList.add('hidden');
         }
       });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
     }
   </script>
 </body>
