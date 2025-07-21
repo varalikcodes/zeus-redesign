@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZeusCareers | Job Board</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #407BFF;
-      --bg-light: #f9f9f9;
-      --text: #222;
-      --subtext: #666;
-      --border: #e2e2e2;
+      --bg-light: #f4f7ff;
+      --text: #111;
+      --subtext: #555;
+      --border: #dcdcdc;
       --card-bg: #fff;
-      --radius: 12px;
+      --radius: 14px;
     }
 
     * {
@@ -38,20 +38,28 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 24px;
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border);
+      padding: 32px 40px;
+      background: linear-gradient(to right, #dbeafe, #e0f2fe);
+      border-bottom: 2px solid var(--border);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.05);
     }
 
     .header img {
-      height: 48px;
+      height: 70px;
+    }
+
+    .banner-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem;
+      color: #222;
+      text-shadow: 1px 1px 0 #ffffffcc;
     }
 
     .nav a {
-      margin-left: 24px;
+      margin-left: 28px;
       text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
+      color: #1e293b;
+      font-weight: 600;
     }
 
     .filters {
@@ -87,42 +95,45 @@
     .jobs {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 24px;
     }
 
     .job-card {
-      background: var(--card-bg);
-      padding: 20px;
+      position: relative;
+      background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+      padding: 24px 28px;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      transition: box-shadow 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     }
 
     .job-card:hover {
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      transform: scale(1.015);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
     }
 
     .job-card h4 {
-      margin-bottom: 6px;
-      font-size: 1.25rem;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #1e40af;
     }
 
     .job-card p {
       color: var(--subtext);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
-    .hidden { display: none; }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="header">
     <img src="zeus-logo.png" alt="ZeusCareers">
-    <div class="nav">
-      <a href="#">About</a>
-      <a href="#">Resources</a>
-      <a href="#">Pricing</a>
-    </div>
+    <div class="banner-text">⚡ ZeusCareers: Unleashing Potential, One Job at a Time ⚡</div>
   </div>
 
   <div class="container">
@@ -151,25 +162,25 @@
 
       <div class="jobs" id="jobCards">
         <div class="job-card" data-type="full-time" data-location="india" data-category="tech">
-          <h4>Frontend Developer</h4>
+          <h4>🚀 Frontend Developer</h4>
           <p>Full-Time | Bengaluru, India</p>
           <p>Tech Department</p>
         </div>
 
         <div class="job-card" data-type="part-time" data-location="usa" data-category="finance">
-          <h4>Financial Analyst Intern</h4>
+          <h4>📊 Financial Analyst Intern</h4>
           <p>Part-Time | New York, USA</p>
           <p>Finance Department</p>
         </div>
 
         <div class="job-card" data-type="full-time" data-location="france" data-category="tech">
-          <h4>Cloud Engineer</h4>
+          <h4>☁️ Cloud Engineer</h4>
           <p>Full-Time | Paris, France</p>
           <p>Tech Department</p>
         </div>
 
         <div class="job-card" data-type="full-time" data-location="india" data-category="finance">
-          <h4>Accounting Manager</h4>
+          <h4>💼 Accounting Manager</h4>
           <p>Full-Time | Mumbai, India</p>
           <p>Finance Department</p>
         </div>
