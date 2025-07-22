@@ -844,22 +844,6 @@
         .job-card:nth-child(4) { animation-delay: 0.4s; }
         .job-card:nth-child(5) { animation-delay: 0.5s; }
         .job-card:nth-child(6) { animation-delay: 0.6s; }
-        .tools-button {
-          display: inline-block;
-          padding: 0.6rem 1.2rem;
-          background-color: var(--accent-color, #0038ff);
-          color: white;
-          font-weight: 600;
-          border-radius: 30px;
-          text-decoration: none;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-          transition: background 0.3s ease;
-        }
-        
-        .tools-button:hover {
-          background-color: #002fd1;
-        }
-
     </style>
 </head>
 <body>
@@ -874,7 +858,6 @@
                 <li><a href="#companies">Companies</a></li>
                 <li><a href="#resources">Resources</a></li>
                 <li><a href="#about">About</a></li>
-                <a href="job-tools.html" class="tools-button">Job Seeker Tools</a>
             </ul>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
@@ -1260,171 +1243,465 @@
     </footer>
 
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const jobs = [
-    {
-      id: 1,
-      title: "UI/UX Designer",
-      company: "Designify",
-      location: "Remote",
-      type: "Full-time",
-      category: "Design",
-      salary: "$80k - $100k",
-      postedTime: "2d ago",
-      logo: "https://cdn-icons-png.flaticon.com/512/5968/5968705.png"
-    },
-    {
-      id: 2,
-      title: "Frontend Developer",
-      company: "TechNova",
-      location: "San Francisco, CA",
-      type: "Contract",
-      category: "Engineering",
-      salary: "$90/hr",
-      postedTime: "1d ago",
-      logo: "https://cdn-icons-png.flaticon.com/512/5968/5968672.png"
-    },
-    {
-      id: 3,
-      title: "Marketing Analyst",
-      company: "Brandwise",
-      location: "New York, NY",
-      type: "Full-time",
-      category: "Marketing",
-      salary: "$70k - $85k",
-      postedTime: "4d ago",
-      logo: "https://cdn-icons-png.flaticon.com/512/732/732200.png"
-    }
-  ];
+        // Job data
+        const jobsData = [
+            {
+                id: 1,
+                title: "Senior Software Engineer",
+                company: "ZF Automotive",
+                logo: "ZF",
+                location: "Auburn Hills, MI",
+                type: "full-time",
+                workType: "on-site",
+                category: "engineering",
+                salary: "$120K - $160K",
+                salaryMin: 120000,
+                salaryMax: 160000,
+                description: "Join our innovative team working on next-generation automotive software solutions. Lead development of critical safety systems and autonomous driving features.",
+                fullDescription: "Join our innovative team working on next-generation automotive software solutions. Lead development of critical safety systems and autonomous driving features. You'll be responsible for architecting scalable solutions, mentoring junior developers, and collaborating with cross-functional teams to deliver high-quality software products.",
+                responsibilities: [
+                    "Design and develop automotive software systems using C++ and Python",
+                    "Lead code reviews and ensure adherence to coding standards",
+                    "Collaborate with hardware teams on system integration",
+                    "Mentor junior engineers and contribute to team growth",
+                    "Participate in agile development processes and sprint planning"
+                ],
+                requirements: [
+                    "Bachelor's degree in Computer Science or related field",
+                    "5+ years of experience in software development",
+                    "Proficiency in C++, Python, and embedded systems",
+                    "Experience with automotive industry standards (ISO 26262)",
+                    "Strong problem-solving and communication skills"
+                ],
+                benefits: [
+                    "Competitive salary and annual bonus",
+                    "Comprehensive health, dental, and vision insurance",
+                    "401(k) with company matching",
+                    "Flexible work arrangements",
+                    "Professional development opportunities"
+                ],
+                postedTime: "10 hours ago"
+            },
+            {
+                id: 2,
+                title: "Energy Systems Analyst",
+                company: "National Grid",
+                logo: "NG",
+                location: "United Kingdom",
+                type: "full-time",
+                workType: "on-site",
+                category: "engineering",
+                salary: "£55K - £75K",
+                salaryMin: 55000,
+                salaryMax: 75000,
+                description: "Analyze and optimize energy distribution systems across the UK. Work with cutting-edge smart grid technology and renewable energy integration.",
+                fullDescription: "Analyze and optimize energy distribution systems across the UK. Work with cutting-edge smart grid technology and renewable energy integration. You'll be at the forefront of the energy transition, developing innovative solutions for a sustainable future.",
+                responsibilities: [
+                    "Analyze energy consumption patterns and grid performance",
+                    "Develop optimization models for energy distribution",
+                    "Collaborate on renewable energy integration projects",
+                    "Create reports and presentations for stakeholders",
+                    "Support grid modernization initiatives"
+                ],
+                requirements: [
+                    "Master's degree in Engineering or related field",
+                    "3+ years of experience in energy systems",
+                    "Knowledge of power systems analysis",
+                    "Experience with MATLAB, Python, or similar tools",
+                    "Understanding of renewable energy technologies"
+                ],
+                benefits: [
+                    "Competitive salary and pension scheme",
+                    "Health and wellness programs",
+                    "Professional development budget",
+                    "Flexible working hours",
+                    "Employee share scheme"
+                ],
+                postedTime: "10 hours ago"
+            },
+            {
+                id: 3,
+                title: "Chemical Process Engineer",
+                company: "ExxonMobil",
+                logo: "EM",
+                location: "Leatherhead, UK",
+                type: "full-time",
+                workType: "on-site",
+                category: "engineering",
+                salary: "£70K - £95K",
+                salaryMin: 70000,
+                salaryMax: 95000,
+                description: "Lead process optimization initiatives in our advanced refining operations. Drive innovation in sustainable energy solutions and operational excellence.",
+                fullDescription: "Lead process optimization initiatives in our advanced refining operations. Drive innovation in sustainable energy solutions and operational excellence. You'll work on cutting-edge technologies to improve efficiency and reduce environmental impact.",
+                responsibilities: [
+                    "Optimize chemical processes for maximum efficiency",
+                    "Lead process safety and environmental initiatives",
+                    "Design and implement process improvements",
+                    "Collaborate with operations and maintenance teams",
+                    "Support new technology development projects"
+                ],
+                requirements: [
+                    "Bachelor's degree in Chemical Engineering",
+                    "5+ years of process engineering experience",
+                    "Knowledge of process simulation software",
+                    "Experience in oil and gas industry",
+                    "Strong analytical and problem-solving skills"
+                ],
+                benefits: [
+                    "Competitive compensation package",
+                    "Comprehensive benefits including healthcare",
+                    "Retirement savings plan with matching",
+                    "Career development opportunities",
+                    "Performance-based bonuses"
+                ],
+                postedTime: "10 hours ago"
+            },
+            {
+                id: 4,
+                title: "Senior Data Scientist",
+                company: "Anaplan",
+                logo: "AN",
+                location: "San Francisco, CA",
+                type: "full-time",
+                workType: "remote",
+                category: "data",
+                salary: "$132K - $179K",
+                salaryMin: 132000,
+                salaryMax: 179000,
+                description: "Build machine learning models to enhance our planning platform. Work with big data to deliver insights that drive business decisions for Fortune 500 companies.",
+                fullDescription: "Build machine learning models to enhance our planning platform. Work with big data to deliver insights that drive business decisions for Fortune 500 companies. You'll be part of a team that's revolutionizing business planning with AI and advanced analytics.",
+                responsibilities: [
+                    "Develop and deploy machine learning models",
+                    "Analyze large datasets to extract business insights",
+                    "Collaborate with product teams on feature development",
+                    "Build predictive analytics solutions",
+                    "Mentor junior data scientists"
+                ],
+                requirements: [
+                    "PhD in Data Science, Statistics, or related field",
+                    "5+ years of machine learning experience",
+                    "Proficiency in Python, R, and SQL",
+                    "Experience with cloud platforms (AWS, GCP)",
+                    "Strong communication and presentation skills"
+                ],
+                benefits: [
+                    "Competitive salary and equity package",
+                    "Comprehensive health, dental, and vision",
+                    "Unlimited PTO policy",
+                    "Professional development budget",
+                    "Remote work flexibility"
+                ],
+                postedTime: "5 days ago"
+            },
+            {
+                id: 5,
+                title: "Product Manager",
+                company: "Carvana",
+                logo: "CV",
+                location: "Roseville, CA",
+                type: "full-time",
+                workType: "hybrid",
+                category: "product",
+                salary: "$110K - $140K",
+                salaryMin: 110000,
+                salaryMax: 140000,
+                description: "Drive product strategy for our revolutionary online car buying platform. Lead cross-functional teams to deliver exceptional customer experiences.",
+                fullDescription: "Drive product strategy for our revolutionary online car buying platform. Lead cross-functional teams to deliver exceptional customer experiences. You'll shape the future of automotive retail through innovative digital solutions.",
+                responsibilities: [
+                    "Define and execute product roadmap",
+                    "Conduct market research and competitive analysis",
+                    "Collaborate with engineering and design teams",
+                    "Analyze product metrics and user feedback",
+                    "Present to executive leadership and stakeholders"
+                ],
+                requirements: [
+                    "Bachelor's degree in Business or related field",
+                    "3+ years of product management experience",
+                    "Experience with consumer-facing products",
+                    "Strong analytical and data-driven mindset",
+                    "Excellent communication and leadership skills"
+                ],
+                benefits: [
+                    "Competitive salary and stock options",
+                    "Health, dental, and vision insurance",
+                    "401(k) with company match",
+                    "Flexible work arrangements",
+                    "Employee car purchase discounts"
+                ],
+                postedTime: "7 days ago"
+            },
+            {
+                id: 6,
+                title: "Financial Systems Specialist",
+                company: "Euroclear",
+                logo: "EC",
+                location: "Krakow, Poland",
+                type: "full-time",
+                workType: "on-site",
+                category: "finance",
+                salary: "€45K - €65K",
+                salaryMin: 45000,
+                salaryMax: 65000,
+                description: "Manage critical financial infrastructure systems supporting global securities transactions. Ensure operational excellence in high-stakes trading environments.",
+                fullDescription: "Manage critical financial infrastructure systems supporting global securities transactions. Ensure operational excellence in high-stakes trading environments. You'll be part of a team that processes trillions of euros in transactions daily.",
+                responsibilities: [
+                    "Maintain and optimize financial systems",
+                    "Monitor transaction processing and system performance",
+                    "Collaborate with global operations teams",
+                    "Implement system upgrades and enhancements",
+                    "Ensure compliance with financial regulations"
+                ],
+                requirements: [
+                    "Bachelor's degree in Finance or IT",
+                    "3+ years of financial systems experience",
+                    "Knowledge of securities processing",
+                    "Experience with SQL and database management",
+                    "Understanding of financial markets"
+                ],
+                benefits: [
+                    "Competitive salary and annual bonus",
+                    "Private healthcare coverage",
+                    "Pension scheme with employer contribution",
+                    "Professional training and certifications",
+                    "International career opportunities"
+                ],
+                postedTime: "8 days ago"
+            }
+        ];
 
-  const jobsGrid = document.getElementById("jobsGrid");
-  const searchFilter = document.getElementById("searchFilter");
-  const typeFilter = document.getElementById("typeFilter");
-  const locationFilter = document.getElementById("locationFilter");
-  const categoryFilter = document.getElementById("categoryFilter");
-  const salaryMin = document.getElementById("salaryMin");
-  const salaryMax = document.getElementById("salaryMax");
-  const clearFilters = document.getElementById("clearFilters");
+        let filteredJobs = [...jobsData];
 
-  const themeToggle = document.getElementById("themeToggle");
-  themeToggle.addEventListener("click", () => {
-    const html = document.documentElement;
-    const newTheme = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    html.setAttribute("data-theme", newTheme);
-  });
+        // DOM elements
+        const jobsGrid = document.getElementById('jobsGrid');
+        const jobModal = document.getElementById('jobModal');
+        const modalClose = document.getElementById('modalClose');
+        const searchFilter = document.getElementById('searchFilter');
+        const typeFilter = document.getElementById('typeFilter');
+        const locationFilter = document.getElementById('locationFilter');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const salaryMin = document.getElementById('salaryMin');
+        const salaryMax = document.getElementById('salaryMax');
+        const clearFilters = document.getElementById('clearFilters');
 
-  function renderJobs(filteredJobs) {
-    jobsGrid.innerHTML = "";
+        // Render jobs
+        function renderJobs(jobs) {
+            jobsGrid.innerHTML = jobs.map(job => 
+                <div class="job-card" data-job-id="${job.id}">
+                    <div class="job-header">
+                        <div class="company-logo">${job.logo}</div>
+                        <div class="job-info">
+                            <h3>${job.title}</h3>
+                            <div class="company-name">${job.company}</div>
+                        </div>
+                    </div>
+                    <div class="job-details">
+                        <span class="job-tag">${job.type.charAt(0).toUpperCase() + job.type.slice(1)}</span>
+                        <span class="job-tag">${job.workType.charAt(0).toUpperCase() + job.workType.slice(1)}</span>
+                        <span class="job-tag">${job.location}</span>
+                        <span class="job-tag salary">${job.salary}</span>
+                    </div>
+                    <p class="job-description">${job.description}</p>
+                    <div class="job-footer">
+                        <span class="posted-time">${job.postedTime}</span>
+                        <button class="apply-button" data-job-id="${job.id}">Apply Now</button>
+                    </div>
+                </div>
+            ).join('');
+        }
 
-    if (filteredJobs.length === 0) {
-      jobsGrid.innerHTML = "<p>No jobs match your filters.</p>";
-      return;
-    }
+        // Simple modal functionality
+        function openJobModal(jobId) {
+            console.log('Opening modal for job:', jobId);
+            
+            const job = jobsData.find(j => j.id === jobId);
+            if (!job) return;
 
-    filteredJobs.forEach(job => {
-      const jobCard = document.createElement("div");
-      jobCard.classList.add("job-card");
+            // Update modal content
+            document.getElementById('modalCompanyLogo').textContent = job.logo;
+            document.getElementById('modalJobTitle').textContent = job.title;
+            document.getElementById('modalCompanyName').textContent = job.company;
+            document.getElementById('modalJobDescription').textContent = job.fullDescription;
+            
+            // Show modal
+            const modal = document.getElementById('jobModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
 
-      jobCard.innerHTML = `
-        <div class="job-header">
-          <img src="${job.logo}" alt="${job.company} logo" class="company-logo">
-          <div class="job-info">
-            <h3 class="job-title">${job.title}</h3>
-            <p class="company-name">${job.company}</p>
-          </div>
-        </div>
-        <div class="job-details">
-          <span class="job-type">${job.type}</span>
-          <span class="job-location">${job.location}</span>
-          <span class="job-salary">${job.salary}</span>
-        </div>
-        <div class="job-footer">
-          <span class="posted-time">${job.postedTime}</span>
-        </div>
-      `;
+        function closeJobModal() {
+            const modal = document.getElementById('jobModal');
+            modal.classList.remove('active');
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
 
-      jobsGrid.appendChild(jobCard);
-    });
-  }
+        // Event listeners for modal
+        document.getElementById('modalClose').addEventListener('click', closeJobModal);
+        document.getElementById('jobModal').addEventListener('click', function(e) {
+            if (e.target === this) closeJobModal();
+        });
 
-  function filterJobs() {
-    let filtered = [...jobs];
+        // Event delegation for apply buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('apply-button')) {
+                e.preventDefault();
+                const jobId = parseInt(e.target.getAttribute('data-job-id'));
+                openJobModal(jobId);
+            }
+        });
 
-    const searchTerm = searchFilter.value.toLowerCase().trim();
-    if (searchTerm) {
-      filtered = filtered.filter(job =>
-        job.title.toLowerCase().includes(searchTerm) ||
-        job.company.toLowerCase().includes(searchTerm) ||
-        job.category.toLowerCase().includes(searchTerm)
-      );
-    }
+        // Filter jobs
+        function filterJobs() {
+            const searchTerm = searchFilter.value.toLowerCase();
+            const selectedType = typeFilter.value;
+            const selectedLocation = locationFilter.value;
+            const selectedCategory = categoryFilter.value;
+            const minSalary = parseInt(salaryMin.value) || 0;
+            const maxSalary = parseInt(salaryMax.value) || Infinity;
 
-    const type = typeFilter.value;
-    if (type) {
-      filtered = filtered.filter(job => job.type.toLowerCase() === type.toLowerCase());
-    }
+            filteredJobs = jobsData.filter(job => {
+                const matchesSearch = !searchTerm || 
+                    job.title.toLowerCase().includes(searchTerm) ||
+                    job.company.toLowerCase().includes(searchTerm) ||
+                    job.description.toLowerCase().includes(searchTerm);
 
-    const location = locationFilter.value;
-    if (location) {
-      filtered = filtered.filter(job => job.location.toLowerCase().includes(location.toLowerCase()));
-    }
+                const matchesType = !selectedType || job.type === selectedType;
+                
+                const matchesLocation = !selectedLocation || 
+                    job.workType === selectedLocation ||
+                    job.location.toLowerCase().includes(selectedLocation);
 
-    const category = categoryFilter.value;
-    if (category) {
-      filtered = filtered.filter(job => job.category.toLowerCase() === category.toLowerCase());
-    }
+                const matchesCategory = !selectedCategory || job.category === selectedCategory;
 
-    const minSalary = parseInt(salaryMin.value);
-    const maxSalary = parseInt(salaryMax.value);
+                const matchesSalary = job.salaryMin >= minSalary && job.salaryMax <= maxSalary;
 
-    if (!isNaN(minSalary)) {
-      filtered = filtered.filter(job => {
-        const salary = extractSalary(job.salary);
-        return salary && salary >= minSalary;
-      });
-    }
+                return matchesSearch && matchesType && matchesLocation && matchesCategory && matchesSalary;
+            });
 
-    if (!isNaN(maxSalary)) {
-      filtered = filtered.filter(job => {
-        const salary = extractSalary(job.salary);
-        return salary && salary <= maxSalary;
-      });
-    }
+            renderJobs(filteredJobs);
+        }
 
-    renderJobs(filtered);
-  }
+        // Clear all filters
+        function clearAllFilters() {
+            searchFilter.value = '';
+            typeFilter.value = '';
+            locationFilter.value = '';
+            categoryFilter.value = '';
+            salaryMin.value = '';
+            salaryMax.value = '';
+            filteredJobs = [...jobsData];
+            renderJobs(filteredJobs);
+        }
 
-  function extractSalary(salaryStr) {
-    const match = salaryStr.match(/\$?(\d+)(k|\/hr)?/i);
-    if (match) {
-      let salary = parseInt(match[1]);
-      if (match[2] && match[2].toLowerCase() === "k") {
-        return salary * 1000;
-      }
-      return salary;
-    }
-    return null;
-  }
+        // Event listeners
+        modalClose.addEventListener('click', closeJobModal);
+        jobModal.addEventListener('click', (e) => {
+            if (e.target === jobModal) closeJobModal();
+        });
 
-  searchFilter.addEventListener("input", filterJobs);
-  typeFilter.addEventListener("change", filterJobs);
-  locationFilter.addEventListener("change", filterJobs);
-  categoryFilter.addEventListener("change", filterJobs);
-  salaryMin.addEventListener("input", filterJobs);
-  salaryMax.addEventListener("input", filterJobs);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && jobModal.classList.contains('active')) {
+                closeJobModal();
+            }
+        });
 
-  clearFilters.addEventListener("click", () => {
-    searchFilter.value = "";
-    typeFilter.value = "";
-    locationFilter.value = "";
-    categoryFilter.value = "";
-    salaryMin.value = "";
-    salaryMax.value = "";
-    filterJobs();
-  });
+        // Event delegation for apply buttons (since they're dynamically generated)
+        jobsGrid.addEventListener('click', function(e) {
+            if (e.target.classList.contains('apply-button')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const jobId = parseInt(e.target.getAttribute('data-job-id'));
+                console.log('Apply button clicked for job ID:', jobId);
+                openJobModal(jobId);
+            }
+        });
 
-  renderJobs(jobs);
-});
-</script>
+        // Filter event listeners
+        searchFilter.addEventListener('input', filterJobs);
+        typeFilter.addEventListener('change', filterJobs);
+        locationFilter.addEventListener('change', filterJobs);
+        categoryFilter.addEventListener('change', filterJobs);
+        salaryMin.addEventListener('input', filterJobs);
+        salaryMax.addEventListener('input', filterJobs);
+        clearFilters.addEventListener('click', clearAllFilters);
+
+        // File upload handler
+        document.getElementById('resumeUpload').addEventListener('click', () => {
+            document.getElementById('resumeFile').click();
+        });
+
+        document.getElementById('resumeFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const uploadText = document.querySelector('.file-upload-text');
+                uploadText.innerHTML = ✅ ${file.name}<br><small>File selected successfully</small>;
+            }
+        });
+
+        // Application form submission
+        document.getElementById('submitApplication').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Application submitted successfully!');
+            closeJobModal();
+        });
+
+        // Add search functionality
+        document.querySelector('.search-button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm.trim()) {
+                searchFilter.value = searchTerm;
+                filterJobs();
+                document.querySelector('.jobs-grid').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+
+        // Add newsletter subscription
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.querySelector('.newsletter-input').value;
+            if (email.trim() && email.includes('@')) {
+                alert(Thank you for subscribing with email: ${email});
+                document.querySelector('.newsletter-input').value = '';
+            } else {
+                alert('Please enter a valid email address');
+            }
+        });
+
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark');
+            
+            if (body.classList.contains('dark')) {
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Initialize the page
+        renderJobs(filteredJobs);
+    </script>
 </body>
 </html>
