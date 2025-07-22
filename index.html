@@ -166,31 +166,36 @@
             background: #2d3748;
         }
 
-        .cta-button {
-            background: linear-gradient(45deg, #000000, #666666);
+        ..cta-button {
+            background: #000000;
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 0.625rem 1.25rem;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
         }
 
         body.dark .cta-button {
-            background: linear-gradient(45deg, #ffffff, #cccccc);
+            background: #ffffff;
             color: #000000;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            background: #1f2937;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         body.dark .cta-button:hover {
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+            background: #f3f4f6;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
         }
 
         /* Hero Section */
