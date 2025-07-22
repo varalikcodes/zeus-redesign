@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zeus Careers | Job Seeker Tools</title>
-  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -13,7 +12,7 @@
       --text-light: #000000;
       --text-dark: #ffffff;
       --primary: #0038ff;
-      --primary-soft: #c7d7ff;
+      --primary-soft: #d1e0ff;
       --shadow: rgba(0, 0, 0, 0.1);
     }
 
@@ -21,101 +20,125 @@
       --bg-light: #0d1117;
       --text-light: #ffffff;
       --primary: #1f6fff;
+      --primary-soft: #2a3a6e;
       --shadow: rgba(255, 255, 255, 0.05);
     }
 
     body {
       margin: 0;
-      padding: 0;
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-light);
       color: var(--text-light);
     }
 
-    header {
-      padding: 2rem 1rem 1rem;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.2rem;
+    /* Header Bar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--primary);
+      color: white;
     }
 
+    .topbar h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .topbar nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+
+    .dark-toggle {
+      background: transparent;
+      border: 2px solid white;
+      border-radius: 50%;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem 0.7rem;
+      margin-left: 1rem;
+    }
+
+    .dark-toggle:hover {
+      background-color: white;
+      color: var(--primary);
+    }
+
+    /* Section Title */
+    header {
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 2rem 1rem 1rem;
+      font-weight: 600;
+    }
+
+    /* Tools Grid */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
+      gap: 1.5rem;
       padding: 2rem 4vw;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: auto;
     }
 
     .tool {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.4rem;
-      background: linear-gradient(145deg, #ffffff, var(--primary-soft));
+      padding: 1rem 1.2rem;
+      background-color: var(--primary-soft);
       border: 2px solid var(--primary);
-      border-radius: 2rem;
-      box-shadow: 0 4px 10px var(--shadow);
+      border-radius: 50px;
+      text-align: center;
       font-weight: 600;
       color: var(--primary);
-      text-align: center;
+      transition: 0.2s ease-in-out;
+      box-shadow: 0 4px 10px var(--shadow);
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
     }
 
     .tool:hover {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .tool svg {
-      width: 1.2rem;
-      height: 1.2rem;
-      fill: currentColor;
-    }
-
-    .dark-mode-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: 2px solid var(--primary);
-      border-radius: 50%;
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 1rem;
-      color: var(--primary);
-      cursor: pointer;
-    }
-
-    .dark-mode-toggle:hover {
-      background: var(--primary);
-      color: #fff;
+      background-color: var(--primary);
+      color: white;
     }
   </style>
 </head>
 <body>
 
-  <button class="dark-mode-toggle" id="toggleTheme">🌓</button>
+  <!-- Header with nav and dark mode toggle -->
+  <div class="topbar">
+    <h1>ZeusCareers</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Resources</a>
+      <a href="#">Features & Pricing</a>
+      <a href="#">About Us</a>
+      <a href="#">Post a Job for Free</a>
+      <button class="dark-toggle" id="toggleTheme">☾</button>
+    </nav>
+  </div>
 
+  <!-- Page description -->
   <header>
     At <strong>ZeusCareers.com</strong>, we're committed to helping candidates find a job.
   </header>
 
+  <!-- Modern job seeker tools section -->
   <section class="tools-grid">
-    <div class="tool"><span>👍</span> Job Search Tips</div>
-    <div class="tool"><span>📄</span> Resume Templates</div>
-    <div class="tool"><span>💬</span> Interview Questions</div>
-    <div class="tool"><span>📧</span> Email Templates</div>
-    <div class="tool"><span>⏰</span> Videos</div>
-    <div class="tool"><span>📰</span> Blogs</div>
-    <div class="tool"><span>🎓</span> Education & Training</div>
-    <div class="tool"><span>👔</span> Business Clothing</div>
-    <div class="tool"><span>🕹️</span> Pay & Salary</div>
-    <div class="tool"><span>📜</span> Correspondence</div>
-    <div class="tool"><span>🕑</span> Starting a new Job</div>
+    <div class="tool">Job Search Tips</div>
+    <div class="tool">Resume Templates</div>
+    <div class="tool">Interview Questions</div>
+    <div class="tool">Email Templates</div>
+    <div class="tool">Videos</div>
+    <div class="tool">Blogs</div>
+    <div class="tool">Education & Training</div>
+    <div class="tool">Business Clothing</div>
+    <div class="tool">Pay & Salary</div>
+    <div class="tool">Correspondence</div>
+    <div class="tool">Starting a New Job</div>
   </section>
 
   <script>
