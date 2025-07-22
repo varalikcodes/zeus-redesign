@@ -7,28 +7,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-light: #ffffff;
-      --bg-dark: #0d1117;
-      --text-light: #000000;
-      --text-dark: #ffffff;
-      --primary: #0038ff;
-      --primary-soft: #d1e0ff;
-      --shadow: rgba(0, 0, 0, 0.1);
+      --bg-color: linear-gradient(to bottom right, #ffffff, #e6e6e6);
+      --text-color: #000000;
+      --card-bg: #ffffff;
+      --accent-color: #000000;
+      --shadow-color: rgba(0, 0, 0, 0.08);
     }
 
     [data-theme="dark"] {
-      --bg-light: #0d1117;
-      --text-light: #ffffff;
-      --primary: #1f6fff;
-      --primary-soft: #2a3a6e;
-      --shadow: rgba(255, 255, 255, 0.05);
+      --bg-color: linear-gradient(to bottom right, #000000, #1a1a1a);
+      --text-color: #ffffff;
+      --card-bg: #121212;
+      --accent-color: #ffffff;
+      --shadow-color: rgba(255, 255, 255, 0.05);
     }
 
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-light);
+      background: var(--bg-color);
+      color: var(--text-color);
     }
 
     /* Header Bar */
@@ -37,7 +35,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background-color: var(--primary);
+      background-color: var(--accent-color);
       color: white;
     }
 
@@ -47,10 +45,15 @@
     }
 
     .topbar nav a {
-      margin-left: 1rem;
+      margin-left: 1.2rem;
       text-decoration: none;
       color: white;
       font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .topbar nav a:hover {
+      text-decoration: underline;
     }
 
     .dark-toggle {
@@ -61,54 +64,74 @@
       font-size: 1rem;
       cursor: pointer;
       padding: 0.5rem 0.7rem;
-      margin-left: 1rem;
+      margin-left: 1.5rem;
     }
 
     .dark-toggle:hover {
       background-color: white;
-      color: var(--primary);
+      color: var(--accent-color);
     }
 
-    /* Section Title */
+    /* Title Text */
     header {
       text-align: center;
       font-size: 1.2rem;
       padding: 2rem 1rem 1rem;
       font-weight: 600;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     /* Tools Grid */
     .tools-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.5rem;
-      padding: 2rem 4vw;
+      padding: 3rem 5vw;
       max-width: 1200px;
       margin: auto;
     }
 
     .tool {
-      padding: 1rem 1.2rem;
-      background-color: var(--primary-soft);
-      border: 2px solid var(--primary);
+      padding: 1rem 1.5rem;
+      background-color: var(--card-bg);
+      border: 2px solid var(--accent-color);
       border-radius: 50px;
       text-align: center;
       font-weight: 600;
-      color: var(--primary);
-      transition: 0.2s ease-in-out;
-      box-shadow: 0 4px 10px var(--shadow);
+      color: var(--accent-color);
+      transition: 0.25s ease;
+      box-shadow: 0 4px 14px var(--shadow-color);
       cursor: pointer;
     }
 
     .tool:hover {
-      background-color: var(--primary);
-      color: white;
+      background-color: var(--accent-color);
+      color: var(--card-bg);
+    }
+
+    @media (max-width: 500px) {
+      .topbar {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .topbar nav {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .topbar nav a,
+      .dark-toggle {
+        margin-top: 0.5rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header with nav and dark mode toggle -->
+  <!-- Header Bar -->
   <div class="topbar">
     <h1>ZeusCareers</h1>
     <nav>
@@ -121,12 +144,12 @@
     </nav>
   </div>
 
-  <!-- Page description -->
+  <!-- Tagline -->
   <header>
     At <strong>ZeusCareers.com</strong>, we're committed to helping candidates find a job.
   </header>
 
-  <!-- Modern job seeker tools section -->
+  <!-- Tools Section -->
   <section class="tools-grid">
     <div class="tool">Job Search Tips</div>
     <div class="tool">Resume Templates</div>
@@ -141,6 +164,7 @@
     <div class="tool">Starting a New Job</div>
   </section>
 
+  <!-- Dark Mode Script -->
   <script>
     const toggleBtn = document.getElementById("toggleTheme");
     toggleBtn.addEventListener("click", () => {
