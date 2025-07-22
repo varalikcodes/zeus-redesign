@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zeus Careers | Job Seeker Tools</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #ffffff;
+      --bg-dark: #0d1117;
+      --text-light: #000000;
+      --text-dark: #ffffff;
+      --primary: #0038ff;
+      --primary-soft: #c7d7ff;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] {
+      --bg-light: #0d1117;
+      --text-light: #ffffff;
+      --primary: #1f6fff;
+      --shadow: rgba(255, 255, 255, 0.05);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    header {
+      padding: 2rem 1rem 1rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      padding: 2rem 4vw;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tool {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.4rem;
+      background: linear-gradient(145deg, #ffffff, var(--primary-soft));
+      border: 2px solid var(--primary);
+      border-radius: 2rem;
+      box-shadow: 0 4px 10px var(--shadow);
+      font-weight: 600;
+      color: var(--primary);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .tool:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .tool svg {
+      width: 1.2rem;
+      height: 1.2rem;
+      fill: currentColor;
+    }
+
+    .dark-mode-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1rem;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .dark-mode-toggle:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="dark-mode-toggle" id="toggleTheme">🌓</button>
+
+  <header>
+    At <strong>ZeusCareers.com</strong>, we're committed to helping candidates find a job.
+  </header>
+
+  <section class="tools-grid">
+    <div class="tool"><span>👍</span> Job Search Tips</div>
+    <div class="tool"><span>📄</span> Resume Templates</div>
+    <div class="tool"><span>💬</span> Interview Questions</div>
+    <div class="tool"><span>📧</span> Email Templates</div>
+    <div class="tool"><span>⏰</span> Videos</div>
+    <div class="tool"><span>📰</span> Blogs</div>
+    <div class="tool"><span>🎓</span> Education & Training</div>
+    <div class="tool"><span>👔</span> Business Clothing</div>
+    <div class="tool"><span>🕹️</span> Pay & Salary</div>
+    <div class="tool"><span>📜</span> Correspondence</div>
+    <div class="tool"><span>🕑</span> Starting a new Job</div>
+  </section>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleTheme");
+    toggleBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+    });
+  </script>
+
+</body>
+</html>
