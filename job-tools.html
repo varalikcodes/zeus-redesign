@@ -56,6 +56,13 @@
             gap: 2rem;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
         .logo {
             font-size: 1.375rem;
             font-weight: 700;
@@ -103,36 +110,50 @@
             color: #ffffff;
         }
 
-        .back-btn {
-            background: #f3f4f6;
-            color: #374151;
-            padding: 0.625rem 1rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s ease;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: #000000;
+            transition: width 0.2s ease;
+        }
+
+        body.dark .nav-links a::after {
+            background: #ffffff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .tools-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.625rem 1rem;
+            background-color: #000000;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            text-decoration: none;
             white-space: nowrap;
         }
 
-        body.dark .back-btn {
-            background: #374151;
-            color: #d1d5db;
-            border-color: #4b5563;
-        }
-
-        .back-btn:hover {
-            background: #e5e7eb;
-            border-color: #d1d5db;
-            transform: translateY(-1px);
-        }
-
-        body.dark .back-btn:hover {
-            background: #4b5563;
-            border-color: #6b7280;
+        body.dark .tools-button {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
         }
 
         .theme-toggle {
@@ -165,6 +186,38 @@
         body.dark .theme-toggle:hover {
             background: #374151;
             border-color: #6b7280;
+        }
+
+        .cta-button {
+            background: #000000;
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        body.dark .cta-button {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .cta-button:hover {
+            background: #1f2937;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark .cta-button:hover {
+            background: #f3f4f6;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
         }
 
         /* Main Layout */
@@ -724,6 +777,10 @@
                 position: static;
                 margin-bottom: 1rem;
             }
+
+            nav {
+                gap: 1rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -731,8 +788,31 @@
                 padding: 0 1rem;
             }
 
+            nav {
+                padding: 1rem 0;
+                gap: 1rem;
+            }
+
             .nav-links {
                 display: none;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .nav-actions {
+                gap: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .theme-toggle {
+                width: 36px;
+                height: 36px;
             }
 
             .tools-grid {
@@ -775,16 +855,19 @@
 <body>
     <header>
         <nav class="container">
-            <div class="logo">Zeus Careers</div>
+            <div class="logo-container">
+                <div class="logo">Zeus Careers</div>
+            </div>
             <ul class="nav-links">
                 <li><a href="#">Jobs</a></li>
                 <li><a href="#">Companies</a></li>
                 <li><a href="#">Resources</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#" class="back-btn">← Back to Jobs</a></li>
+                <li><span class="tools-button">Job Seeker Tools</span></li>
             </ul>
             <div class="nav-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+                <a href="#" class="cta-button">Post a Job</a>
             </div>
         </nav>
     </header>
