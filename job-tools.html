@@ -1,177 +1,1388 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Zeus Careers | Job Seeker Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-color: linear-gradient(to bottom right, #ffffff, #e6e6e6);
-      --text-color: #000000;
-      --card-bg: #ffffff;
-      --accent-color: #000000;
-      --shadow-color: rgba(0, 0, 0, 0.08);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeus Careers - Job Seeker Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    [data-theme="dark"] {
-      --bg-color: linear-gradient(to bottom right, #000000, #1a1a1a);
-      --text-color: #ffffff;
-      --card-bg: #121212;
-      --accent-color: #ffffff;
-      --shadow-color: rgba(255, 255, 255, 0.05);
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #2d3748;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-    }
+        body.dark {
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            color: #e2e8f0;
+        }
 
-    /* Header Bar */
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: var(--accent-color);
-      color: white;
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
 
-    .topbar h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
 
-    .topbar nav a {
-      margin-left: 1.2rem;
-      text-decoration: none;
-      color: white;
-      font-weight: 500;
-      transition: 0.2s;
-    }
+        body.dark header {
+            background: rgba(26, 26, 26, 0.98);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
 
-    .topbar nav a:hover {
-      text-decoration: underline;
-    }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
 
-    .dark-toggle {
-      background: transparent;
-      border: 2px solid white;
-      border-radius: 50%;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      padding: 0.5rem 0.7rem;
-      margin-left: 1.5rem;
-    }
+        .logo {
+            font-size: 1.375rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #000000, #333333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+        }
 
-    .dark-toggle:hover {
-      background-color: white;
-      color: var(--accent-color);
-    }
+        body.dark .logo {
+            background: linear-gradient(45deg, #ffffff, #e5e5e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    /* Title Text */
-    header {
-      text-align: center;
-      font-size: 1.2rem;
-      padding: 2rem 1rem 1rem;
-      font-weight: 600;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+            margin: 0;
+        }
 
-    /* Tools Grid */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      padding: 3rem 5vw;
-      max-width: 1200px;
-      margin: auto;
-    }
+        .nav-links a {
+            color: #374151;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
 
-    .tool {
-      padding: 1rem 1.5rem;
-      background-color: var(--card-bg);
-      border: 2px solid var(--accent-color);
-      border-radius: 50px;
-      text-align: center;
-      font-weight: 600;
-      color: var(--accent-color);
-      transition: 0.25s ease;
-      box-shadow: 0 4px 14px var(--shadow-color);
-      cursor: pointer;
-    }
+        body.dark .nav-links a {
+            color: #d1d5db;
+        }
 
-    .tool:hover {
-      background-color: var(--accent-color);
-      color: var(--card-bg);
-    }
+        .nav-links a:hover {
+            color: #000000;
+        }
 
-    @media (max-width: 500px) {
-      .topbar {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-      }
+        body.dark .nav-links a:hover {
+            color: #ffffff;
+        }
 
-      .topbar nav {
-        display: flex;
-        flex-wrap: wrap;
-      }
+        .back-btn {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 0.625rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
 
-      .topbar nav a,
-      .dark-toggle {
-        margin-top: 0.5rem;
-      }
-    }
-  </style>
+        body.dark .back-btn {
+            background: #374151;
+            color: #d1d5db;
+            border-color: #4b5563;
+        }
+
+        .back-btn:hover {
+            background: #e5e7eb;
+            border-color: #d1d5db;
+            transform: translateY(-1px);
+        }
+
+        body.dark .back-btn:hover {
+            background: #4b5563;
+            border-color: #6b7280;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1.5px solid #e5e7eb;
+            color: #6b7280;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark .theme-toggle {
+            border-color: #4b5563;
+            color: #9ca3af;
+        }
+
+        .theme-toggle:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            transform: scale(1.05);
+        }
+
+        body.dark .theme-toggle:hover {
+            background: #374151;
+            border-color: #6b7280;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+            min-height: calc(100vh - 120px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.dark .sidebar {
+            background: #2d3748;
+            border-color: #4a5568;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar-header {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #000000, #333333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark .sidebar-title {
+            background: linear-gradient(45deg, #ffffff, #e5e5e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        body.dark .sidebar-subtitle {
+            color: #a0aec0;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .category-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        body.dark .category-link {
+            color: #a0aec0;
+        }
+
+        .category-link.active {
+            background: #f7fafc;
+            color: #000000;
+        }
+
+        body.dark .category-link.active {
+            background: #4a5568;
+            color: #ffffff;
+        }
+
+        .category-link:hover {
+            background: #f1f5f9;
+            color: #2d3748;
+        }
+
+        body.dark .category-link:hover {
+            background: #4a5568;
+            color: #e2e8f0;
+        }
+
+        .category-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #000000, #333333);
+            color: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        body.dark .category-icon {
+            background: linear-gradient(45deg, #ffffff, #e5e5e5);
+            color: #000000;
+        }
+
+        .category-link.active .category-icon {
+            background: linear-gradient(45deg, #333333, #000000);
+        }
+
+        body.dark .category-link.active .category-icon {
+            background: linear-gradient(45deg, #e5e5e5, #ffffff);
+        }
+
+        .category-count {
+            margin-left: auto;
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 0.125rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        body.dark .category-count {
+            background: #4a5568;
+            color: #a0aec0;
+        }
+
+        .category-link.active .category-count {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        body.dark .category-link.active .category-count {
+            background: #374151;
+            color: #e2e8f0;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        body.dark .progress-section {
+            border-top-color: #4a5568;
+        }
+
+        .progress-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        body.dark .progress-title {
+            color: #e2e8f0;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #000000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        body.dark .progress-check {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .progress-check.incomplete {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+
+        body.dark .progress-check.incomplete {
+            background: #4a5568;
+            color: #a0aec0;
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        body.dark .progress-text {
+            color: #a0aec0;
+        }
+
+        /* Content Area */
+        .content-area {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            min-height: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.dark .content-area {
+            background: #2d3748;
+            border-color: #4a5568;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        body.dark .content-header {
+            border-bottom-color: #4a5568;
+        }
+
+        .content-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #000000, #333333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark .content-title {
+            background: linear-gradient(45deg, #ffffff, #e5e5e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .content-description {
+            color: #64748b;
+            font-size: 1.125rem;
+        }
+
+        body.dark .content-description {
+            color: #a0aec0;
+        }
+
+        .tools-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        body.dark .tools-header {
+            border-bottom-color: #374151;
+        }
+
+        .tools-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            display: block;
+        }
+
+        body.dark .stat-number {
+            color: #e2e8f0;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        body.dark .stat-label {
+            color: #a0aec0;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 0.25rem;
+        }
+
+        body.dark .view-toggle {
+            background: #374151;
+        }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: none;
+            color: #64748b;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        body.dark .view-btn {
+            color: #a0aec0;
+        }
+
+        .view-btn.active {
+            background: #000000;
+            color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark .view-btn.active {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* Tools Grid */
+        .tools-container {
+            padding: 2rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark .tool-card {
+            background: #374151;
+            border-color: #4a5568;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #000000, #333333);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        body.dark .tool-card::before {
+            background: linear-gradient(45deg, #ffffff, #e5e5e5);
+        }
+
+        .tool-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        body.dark .tool-card:hover {
+            border-color: #64748b;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(45deg, #000000, #333333);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+        }
+
+        body.dark .tool-icon {
+            background: linear-gradient(45deg, #ffffff, #e5e5e5);
+            color: #000000;
+        }
+
+        .tool-info {
+            flex: 1;
+        }
+
+        .tool-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        body.dark .tool-title {
+            color: #e2e8f0;
+        }
+
+        .tool-category {
+            font-size: 0.75rem;
+            color: #64748b;
+            background: #f7fafc;
+            padding: 0.125rem 0.5rem;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        body.dark .tool-category {
+            background: #4a5568;
+            color: #a0aec0;
+        }
+
+        .tool-description {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        body.dark .tool-description {
+            color: #a0aec0;
+        }
+
+        .tool-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        body.dark .tool-meta {
+            border-top-color: #4a5568;
+        }
+
+        .tool-difficulty {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        body.dark .tool-difficulty {
+            color: #a0aec0;
+        }
+
+        .difficulty-dots {
+            display: flex;
+            gap: 2px;
+        }
+
+        .difficulty-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        body.dark .difficulty-dot {
+            background: #4a5568;
+        }
+
+        .difficulty-dot.active {
+            background: #000000;
+        }
+
+        body.dark .difficulty-dot.active {
+            background: #ffffff;
+        }
+
+        .tool-action {
+            background: #000000;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        body.dark .tool-action {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .tool-action:hover {
+            background: #333333;
+            transform: translateY(-1px);
+        }
+
+        body.dark .tool-action:hover {
+            background: #e5e5e5;
+        }
+
+        /* List View */
+        .tools-list {
+            display: none;
+        }
+
+        .tools-list.active {
+            display: block;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+
+        body.dark .list-item {
+            border-bottom-color: #4a5568;
+        }
+
+        .list-item:hover {
+            background: #f8fafc;
+        }
+
+        body.dark .list-item:hover {
+            background: #4a5568;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #000000, #333333);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        body.dark .list-icon {
+            background: linear-gradient(45deg, #ffffff, #e5e5e5);
+            color: #000000;
+        }
+
+        .list-content {
+            flex: 1;
+        }
+
+        .list-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
+        }
+
+        body.dark .list-title {
+            color: #e2e8f0;
+        }
+
+        .list-description {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        body.dark .list-description {
+            color: #a0aec0;
+        }
+
+        .list-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .sidebar {
+                position: static;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-title {
+                font-size: 1.5rem;
+            }
+
+            .tools-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .tools-stats {
+                order: 2;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tool-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .tool-card:nth-child(1) { animation-delay: 0.1s; }
+        .tool-card:nth-child(2) { animation-delay: 0.2s; }
+        .tool-card:nth-child(3) { animation-delay: 0.3s; }
+        .tool-card:nth-child(4) { animation-delay: 0.4s; }
+        .tool-card:nth-child(5) { animation-delay: 0.5s; }
+        .tool-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
 </head>
 <body>
+    <header>
+        <nav class="container">
+            <div class="logo">Zeus Careers</div>
+            <ul class="nav-links">
+                <li><a href="#">Jobs</a></li>
+                <li><a href="#">Companies</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#" class="back-btn">← Back to Jobs</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+            </div>
+        </nav>
+    </header>
 
-  <!-- Header Bar -->
-  <div class="topbar">
-    <h1>ZeusCareers</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="#">Resources</a>
-      <a href="#">Features & Pricing</a>
-      <a href="#">About Us</a>
-      <a href="#">Post a Job for Free</a>
-      <button class="dark-toggle" id="toggleTheme">☾</button>
-    </nav>
-  </div>
+    <div class="container">
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2 class="sidebar-title">Job Tools</h2>
+                    <p class="sidebar-subtitle">Everything you need for your career</p>
+                </div>
 
-  <!-- Tagline -->
-  <header>
-    At <strong>ZeusCareers.com</strong>, we're committed to helping candidates find a job.
-  </header>
+                <ul class="category-list">
+                    <li class="category-item">
+                        <a href="#" class="category-link active" data-category="all">
+                            <span class="category-icon">ALL</span>
+                            All Tools
+                            <span class="category-count">12</span>
+                        </a>
+                    </li>
+                    <li class="category-item">
+                        <a href="#" class="category-link" data-category="preparation">
+                            <span class="category-icon">PREP</span>
+                            Job Preparation
+                            <span class="category-count">4</span>
+                        </a>
+                    </li>
+                    <li class="category-item">
+                        <a href="#" class="category-link" data-category="applications">
+                            <span class="category-icon">APP</span>
+                            Applications
+                            <span class="category-count">3</span>
+                        </a>
+                    </li>
+                    <li class="category-item">
+                        <a href="#" class="category-link" data-category="interviews">
+                            <span class="category-icon">INT</span>
+                            Interview Prep
+                            <span class="category-count">2</span>
+                        </a>
+                    </li>
+                    <li class="category-item">
+                        <a href="#" class="category-link" data-category="career">
+                            <span class="category-icon">CAR</span>
+                            Career Growth
+                            <span class="category-count">3</span>
+                        </a>
+                    </li>
+                </ul>
 
-  <!-- Tools Section -->
-  <section class="tools-grid">
-    <div class="tool">Job Search Tips</div>
-    <div class="tool">Resume Templates</div>
-    <div class="tool">Interview Questions</div>
-    <div class="tool">Email Templates</div>
-    <div class="tool">Videos</div>
-    <div class="tool">Blogs</div>
-    <div class="tool">Education & Training</div>
-    <div class="tool">Business Clothing</div>
-    <div class="tool">Pay & Salary</div>
-    <div class="tool">Correspondence</div>
-    <div class="tool">Starting a New Job</div>
-  </section>
+                <div class="progress-section">
+                    <h3 class="progress-title">Your Progress</h3>
+                    <div class="progress-item">
+                        <div class="progress-check">✓</div>
+                        <span class="progress-text">Resume updated</span>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-check">✓</div>
+                        <span class="progress-text">Profile completed</span>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-check incomplete">3</div>
+                        <span class="progress-text">Practice interviews</span>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-check incomplete">4</div>
+                        <span class="progress-text">Apply to jobs</span>
+                    </div>
+                </div>
+            </aside>
 
-  <!-- Dark Mode Script -->
-  <script>
-    const toggleBtn = document.getElementById("toggleTheme");
-    toggleBtn.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme");
-      document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
-    });
-  </script>
+            <!-- Main Content -->
+            <main class="content-area">
+                <div class="content-header">
+                    <h1 class="content-title">Job Seeker Tools</h1>
+                    <p class="content-description">Professional resources to accelerate your job search and advance your career</p>
+                </div>
 
+                <div class="tools-header">
+                    <div class="tools-stats">
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Total Tools</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Completed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Success Rate</span>
+                        </div>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">Grid</button>
+                        <button class="view-btn" data-view="list">List</button>
+                    </div>
+                </div>
+
+                <div class="tools-container">
+                    <!-- Grid View -->
+                    <div class="tools-grid active" id="gridView">
+                        <div class="tool-card" data-category="preparation">
+                            <div class="tool-header">
+                                <div class="tool-icon">RES</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Resume Templates</h3>
+                                    <span class="tool-category">Preparation</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Professional, ATS-friendly resume templates designed by hiring experts. Choose from 20+ industry-specific formats.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Beginner</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="interviews">
+                            <div class="tool-header">
+                                <div class="tool-icon">QNA</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Interview Questions</h3>
+                                    <span class="tool-category">Interviews</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Master 500+ real interview questions with expert answers and behavioral scenarios for your industry.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Intermediate</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="preparation">
+                            <div class="tool-header">
+                                <div class="tool-icon">TIPS</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Job Search Tips</h3>
+                                    <span class="tool-category">Preparation</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Strategic advice from career coaches to accelerate your search and access the hidden job market.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Beginner</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="applications">
+                            <div class="tool-header">
+                                <div class="tool-icon">MAIL</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Email Templates</h3>
+                                    <span class="tool-category">Applications</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Professional email templates for applications, follow-ups, thank you notes, and networking outreach.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Beginner</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="career">
+                            <div class="tool-header">
+                                <div class="tool-icon">SAL</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Salary Negotiation</h3>
+                                    <span class="tool-category">Career</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Research fair compensation and learn negotiation tactics to maximize your earning potential.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Advanced</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="preparation">
+                            <div class="tool-header">
+                                <div class="tool-icon">VID</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Video Tutorials</h3>
+                                    <span class="tool-category">Preparation</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Expert-led tutorials covering every aspect of the modern job search process with real examples.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Beginner</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="applications">
+                            <div class="tool-header">
+                                <div class="tool-icon">COV</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Cover Letters</h3>
+                                    <span class="tool-category">Applications</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Compelling cover letter templates and examples that get you noticed by hiring managers.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Intermediate</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="career">
+                            <div class="tool-header">
+                                <div class="tool-icon">SKIL</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Skill Development</h3>
+                                    <span class="tool-category">Career</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Discover certifications and courses to advance your career and fill skill gaps in your industry.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Intermediate</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="interviews">
+                            <div class="tool-header">
+                                <div class="tool-icon">PREP</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Interview Prep</h3>
+                                    <span class="tool-category">Interviews</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Complete interview preparation including mock interviews, body language tips, and industry insights.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Intermediate</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="career">
+                            <div class="tool-header">
+                                <div class="tool-icon">PATH</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Career Roadmap</h3>
+                                    <span class="tool-category">Career</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Plan your career progression with industry roadmaps and goal-setting frameworks.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Advanced</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="applications">
+                            <div class="tool-header">
+                                <div class="tool-icon">LINK</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">LinkedIn Optimizer</h3>
+                                    <span class="tool-category">Applications</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Optimize your LinkedIn profile to attract recruiters and build your professional network.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Intermediate</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="tool-card" data-category="preparation">
+                            <div class="tool-header">
+                                <div class="tool-icon">TRAK</div>
+                                <div class="tool-info">
+                                    <h3 class="tool-title">Job Tracker</h3>
+                                    <span class="tool-category">Preparation</span>
+                                </div>
+                            </div>
+                            <p class="tool-description">Track your applications, interviews, and follow-ups with our comprehensive job search organizer.</p>
+                            <div class="tool-meta">
+                                <div class="tool-difficulty">
+                                    <span>Beginner</span>
+                                    <div class="difficulty-dots">
+                                        <div class="difficulty-dot active"></div>
+                                        <div class="difficulty-dot"></div>
+                                        <div class="difficulty-dot"></div>
+                                    </div>
+                                </div>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- List View -->
+                    <div class="tools-list" id="listView">
+                        <div class="list-item" data-category="preparation">
+                            <div class="list-icon">RES</div>
+                            <div class="list-content">
+                                <div class="list-title">Resume Templates</div>
+                                <div class="list-description">Professional, ATS-friendly resume templates designed by hiring experts</div>
+                            </div>
+                            <div class="list-meta">
+                                <span class="tool-category">Preparation</span>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="list-item" data-category="interviews">
+                            <div class="list-icon">QNA</div>
+                            <div class="list-content">
+                                <div class="list-title">Interview Questions</div>
+                                <div class="list-description">Master 500+ real interview questions with expert answers</div>
+                            </div>
+                            <div class="list-meta">
+                                <span class="tool-category">Interviews</span>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+
+                        <div class="list-item" data-category="preparation">
+                            <div class="list-icon">TIPS</div>
+                            <div class="list-content">
+                                <div class="list-title">Job Search Tips</div>
+                                <div class="list-description">Strategic advice from career coaches to accelerate your search</div>
+                            </div>
+                            <div class="list-meta">
+                                <span class="tool-category">Preparation</span>
+                                <button class="tool-action">Open Tool</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark');
+            
+            if (body.classList.contains('dark')) {
+                themeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Category filtering
+        const categoryLinks = document.querySelectorAll('.category-link');
+        const toolCards = document.querySelectorAll('.tool-card');
+        const listItems = document.querySelectorAll('.list-item');
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const category = link.dataset.category;
+                
+                // Update active category
+                categoryLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Filter cards
+                const currentView = document.querySelector('.view-btn.active').dataset.view;
+                const items = currentView === 'grid' ? toolCards : listItems;
+                
+                items.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = currentView === 'grid' ? 'block' : 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // View toggle
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const gridView = document.getElementById('gridView');
+        const listView = document.getElementById('listView');
+
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const view = btn.dataset.view;
+                
+                // Update active button
+                viewBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Toggle views
+                if (view === 'grid') {
+                    gridView.style.display = 'grid';
+                    listView.style.display = 'none';
+                } else {
+                    gridView.style.display = 'none';
+                    listView.style.display = 'block';
+                }
+            });
+        });
+
+        // Tool interactions
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tool-action') || e.target.closest('.tool-card') || e.target.closest('.list-item')) {
+                if (e.target.classList.contains('tool-action')) {
+                    e.preventDefault();
+                    const toolTitle = e.target.closest('.tool-card')?.querySelector('.tool-title')?.textContent || 
+                                     e.target.closest('.list-item')?.querySelector('.list-title')?.textContent;
+                    alert(`Opening ${toolTitle}...`);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
